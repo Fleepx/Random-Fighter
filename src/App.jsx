@@ -1,3 +1,4 @@
+import EfectosSvg from "./components/EfectosSvg";
 import Atmosfera from "./components/Atmosfera";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -7,6 +8,7 @@ import TaglineReveal from "./components/TaglineReveal";
 import Benefits from "./components/Benefits";
 import HowItWorks from "./components/HowItWorks";
 import Faq from "./components/Faq";
+import Contacto from "./components/Contacto";
 import FinalCta from "./components/FinalCta";
 import Footer from "./components/Footer";
 
@@ -17,6 +19,7 @@ export default function App() {
         Saltar al contenido
       </a>
 
+      <EfectosSvg />
       <Atmosfera />
       <Navbar />
 
@@ -28,6 +31,7 @@ export default function App() {
         <Benefits />
         <HowItWorks />
         <Faq />
+        <Contacto />
         <FinalCta />
       </main>
 

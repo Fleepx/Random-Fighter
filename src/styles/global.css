@@ -132,6 +132,65 @@ body {
   text-wrap: pretty;
 }
 
+/* ─── Hoja rasgada ─── */
+
+/* El svg de filtros no ocupa lugar: solo define, no dibuja. */
+.efectos-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Encuadra el contenido como un trozo de papel arrancado.
+ *
+ * El fondo vive en ::before y es lo unico que recibe el filtro. Si el
+ * filtro fuera al elemento, el texto se deformaria con el.
+ *
+ * El padding del elemento tiene que dejar aire suficiente para que el
+ * borde desplazado no le pase por encima al texto. */
+.rf-rasgado {
+  position: relative;
+  background: transparent;
+  border: none;
+}
+.rf-rasgado > * {
+  position: relative;
+  z-index: 1;
+}
+.rf-rasgado::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--tarjeta);
+  border: 1px solid var(--surface-border);
+  filter: url(#rasgado-1);
+}
+.rf-rasgado--2::before { filter: url(#rasgado-2); }
+.rf-rasgado--3::before { filter: url(#rasgado-3); }
+
+/* Firefox y Safari aplican bien el filtro, pero si no hay soporte el
+   ::before igual se ve como un rectangulo limpio: degrada sin romperse. */
+
+/* ─── Vinetas de lista ─── */
+
+/* Cuchilla angular en vez de un punto redondo. La forma sale del propio
+   logo, que esta hecho de cortes en diagonal. */
+.rf-cuchilla {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: 0.35rem;
+  background: var(--red);
+  clip-path: polygon(0 18%, 62% 0, 100% 34%, 44% 100%, 0 72%);
+}
+.rf-cuchilla--apagada {
+  background: var(--text-gray);
+  opacity: 0.45;
+  clip-path: polygon(0 42%, 100% 22%, 100% 58%, 0 78%);
+}
+
 /* ─── Accesibilidad ─── */
 
 /* Anillo de foco visible para quien navega con teclado. No es opcional. */

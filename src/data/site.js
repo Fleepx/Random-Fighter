@@ -22,6 +22,7 @@ export const NAV_LINKS = [
   { href: "#beneficios", label: "Beneficios" },
   { href: "#como-funciona", label: "Cómo funciona" },
   { href: "#preguntas", label: "Preguntas" },
+  { href: "#contacto", label: "Contacto" },
 ];
 
 export const BENEFICIOS = [

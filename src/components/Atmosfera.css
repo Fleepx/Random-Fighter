@@ -24,29 +24,30 @@
 }
 
 /* ─── Tatami ─── */
-/* Absoluto, no fijo: scrollea con la pagina y se va.
+/* Solo al inicio de la pagina, una vez, opaco y sin repetir.
  *
- * La clave esta en background-size: auto 100vh. Con cover sobre un
- * elemento de 175vh, una imagen apaisada de 1920x1080 se escalaba casi al
- * doble para llenar un contenedor vertical, y el tejido salia estirado.
- * Fijando el alto a una pantalla se conserva el encuadre original y el
- * ancho sale de la proporcion real; despues se repite hacia abajo. */
+ * Vuelve a cover porque es lo unico que garantiza cubrir de borde a borde:
+ * con auto 100vh la baldosa podia quedar mas angosta que la ventana y
+ * dejaba franjas sin cubrir a los lados. A un alto de una pantalla, cover
+ * apenas reduce la imagen (no la amplia como cuando la caja media 175vh),
+ * asi que el tejido igual sale nitido.
+ *
+ * Va absoluto para que scrollee con la pagina y se vaya. */
 
 .atm-tatami {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 175vh;
+  height: 108vh;
   z-index: -2;
   pointer-events: none;
   background-image: url('../assets/imgs/fondo-tatami2.jpg');
-  background-size: auto 100vh;
-  background-repeat: repeat-y;
+  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center top;
-  opacity: 0.55;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 96%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 96%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
 }
 
 /* ─── Capa de frente: luces, viñeta y grano ─── */

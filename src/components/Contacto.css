@@ -1,0 +1,86 @@
+/* ─── Contacto ─── */
+
+.contacto {
+  background: transparent;
+  padding: var(--space-800) var(--space-400);
+  display: flex;
+  justify-content: center;
+}
+
+/* El padding tiene que dejar aire de sobra: el borde rasgado se desplaza
+   hacia adentro y sin margen le pasaria por encima al texto. */
+.contacto__caja {
+  width: 100%;
+  max-width: 720px;
+  padding: var(--space-700) var(--space-600);
+  text-align: center;
+}
+
+.contacto__titulo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(var(--text-3xl), 4vw, var(--text-5xl));
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 var(--space-300);
+  text-wrap: balance;
+}
+
+.contacto__texto {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--text-gray);
+  max-width: 440px;
+  margin: 0 auto var(--space-500);
+  text-wrap: pretty;
+}
+
+.contacto__principal {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-decoration: none;
+  padding-bottom: var(--space-75);
+  border-bottom: 2px solid var(--red);
+  transition: color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+.contacto__principal:hover {
+  color: var(--red);
+  transform: translateY(-2px);
+}
+.contacto__principal:active { transform: translateY(1px); }
+
+.contacto__secundarias {
+  margin: var(--space-400) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-200);
+}
+.contacto__secundarias a {
+  color: var(--text-light);
+  text-decoration: none;
+  border-bottom: 1px solid var(--surface-border);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.contacto__secundarias a:hover { border-color: var(--red); }
+
+.contacto__sep {
+  width: 4px;
+  height: 4px;
+  background: var(--red);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+@media (max-width: 620px) {
+  .contacto__caja { padding: var(--space-600) var(--space-400); }
+}

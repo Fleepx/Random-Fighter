@@ -17,12 +17,11 @@
   margin-top: var(--space-700);
 }
 
+/* El fondo y el borde los pone .rf-rasgado desde global.css. Aca solo va
+   el aire interior, que tiene que ser generoso para que el borde
+   desplazado no invada el texto. */
 .problema__col {
-  padding: var(--space-500);
-  /* El borde rodea la tarjeta completa: nunca un solo lado. */
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-lg);
-  background: var(--tarjeta);
+  padding: var(--space-600) var(--space-500);
 }
 
 .problema__col-titulo {
@@ -54,26 +53,8 @@
   text-wrap: pretty;
 }
 
-/* Marca geometrica en vez de icono: una linea para el estado viejo,
-   un cuadro lleno para el nuevo. */
-.problema__marca {
-  flex-shrink: 0;
-  margin-top: 0.55rem;
-  width: 10px;
-  height: 2px;
-  border-radius: 1px;
-}
-.problema__marca--antes {
-  background: var(--text-gray);
-  opacity: 0.5;
-}
-.problema__marca--despues {
-  background: var(--red);
-  height: 10px;
-  border-radius: var(--radius-sm);
-}
-
-.problema__col:has(.problema__marca--antes) .problema__lista li {
+/* La columna del estado viejo va en gris: se lee como lo que se deja atras. */
+.problema__col:has(.rf-cuchilla--apagada) .problema__lista li {
   color: var(--text-gray);
 }
 

@@ -20,17 +20,23 @@
   gap: var(--space-300);
 }
 
+/* Fondo y borde los pone .rf-rasgado. El aire interior es amplio porque
+   el contorno desplazado entra unos pixeles hacia adentro. */
 .beneficio {
-  padding: var(--space-500);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-lg);
-  background: var(--tarjeta);
-  transition: border-color var(--dur-base) var(--ease-out),
-              transform var(--dur-base) var(--ease-out);
+  padding: var(--space-600) var(--space-500);
+  transition: transform var(--dur-base) var(--ease-out);
 }
-.beneficio:hover {
+.beneficio:hover { transform: translateY(-4px); }
+
+/* El realce va en el papel, no en un border-color: la tarjeta ya no tiene
+   borde propio. */
+.beneficio::before {
+  transition: border-color var(--dur-base) var(--ease-out),
+              background-color var(--dur-base) var(--ease-out);
+}
+.beneficio:hover::before {
   border-color: var(--red);
-  transform: translateY(-4px);
+  background-color: rgba(28, 9, 9, 0.72);
 }
 
 .beneficio__titulo {

@@ -28,28 +28,28 @@ export default function Problem() {
         </h2>
 
         <div className="problema__grid">
-          <div className="problema__col">
+          <div className="problema__col rf-rasgado">
             <h3 className="problema__col-titulo problema__col-titulo--antes">
               Hoy
             </h3>
             <ul className="problema__lista">
               {ANTES.map((t) => (
                 <li key={t}>
-                  <span className="problema__marca problema__marca--antes" aria-hidden="true" />
+                  <span className="rf-cuchilla rf-cuchilla--apagada" aria-hidden="true" />
                   {t}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="problema__col">
+          <div className="problema__col rf-rasgado rf-rasgado--2">
             <h3 className="problema__col-titulo problema__col-titulo--despues">
               Con Random Fighter
             </h3>
             <ul className="problema__lista">
               {DESPUES.map((t) => (
                 <li key={t}>
-                  <span className="problema__marca problema__marca--despues" aria-hidden="true" />
+                  <span className="rf-cuchilla" aria-hidden="true" />
                   {t}
                 </li>
               ))}
