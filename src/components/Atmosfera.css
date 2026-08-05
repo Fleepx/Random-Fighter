@@ -1,0 +1,100 @@
+/* ─── Atmosfera ─── */
+/* Tres capas: fondo (-3), tatami (-2) y frente (-1). Ver Atmosfera.jsx
+   para por que el tatami va aparte y no dentro de una capa fija. */
+
+/* ─── Capa de fondo: negro base y cemento ─── */
+
+.atm-fondo {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: var(--bg);
+}
+
+/* Muy bajo de opacidad: se lee como grano grueso del muro, no como una
+   foto de fondo compitiendo con el texto. */
+.atm-fondo__cemento {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/imgs/fondo-cemento.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.55;
+}
+
+/* ─── Tatami ─── */
+/* Absoluto, no fijo: scrollea con la pagina y se va. Mide casi dos
+   pantallas y se apaga con un desvanecido largo, para que el paso al
+   resto de la pagina no se corte de golpe como antes. */
+
+.atm-tatami {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 175vh;
+  z-index: -2;
+  pointer-events: none;
+  background-image: url('../assets/imgs/fondo-tatami2.jpg');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.45;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 94%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 94%);
+}
+
+/* ─── Capa de frente: luces, viñeta y grano ─── */
+
+.atm-frente {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Tres focos rojos: dos entrando por los costados a distinta altura y uno
+   tenue desde arriba. Es la luz de contorno que se repite en las piezas
+   de marketing. */
+.atm-frente__luces {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60vw 70vh at -10% 38%, rgba(192, 57, 43, 0.28), transparent 70%),
+    radial-gradient(55vw 65vh at 110% 64%, rgba(192, 57, 43, 0.22), transparent 70%),
+    radial-gradient(80vw 40vh at 50% -8%, rgba(192, 57, 43, 0.12), transparent 72%);
+}
+
+/* Cierra las esquinas y empuja la mirada al centro. */
+.atm-frente__vineta {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 50% 45%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.5) 76%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+}
+
+/* Ruido generado con SVG, sin pedir archivos al servidor. Rompe las bandas
+   que aparecen en los degradados oscuros en pantallas de 8 bits. */
+.atm-frente__grano {
+  position: absolute;
+  inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23r)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+}
+
+/* En movil las luces laterales invaden la columna de texto: se abren y
+   bajan de intensidad. */
+@media (max-width: 760px) {
+  .atm-frente__luces {
+    background:
+      radial-gradient(95vw 38vh at -25% 28%, rgba(192, 57, 43, 0.22), transparent 72%),
+      radial-gradient(95vw 38vh at 125% 72%, rgba(192, 57, 43, 0.18), transparent 72%);
+  }
+  .atm-fondo__cemento { opacity: 0.4; }
+}

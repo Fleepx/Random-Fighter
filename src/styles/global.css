@@ -67,6 +67,13 @@
 
   /* ─── Layout ─── */
   --measure: 680px;  /* ancho maximo de lectura para titulos y parrafos */
+
+  /* ─── Superficies sobre la atmosfera ─── */
+  /* Translucidas a proposito: dejan pasar la textura y las luces de
+     Atmosfera, pero con suficiente cuerpo para que el texto se lea.
+     --panel es para bloques grandes, --tarjeta para cajas de contenido. */
+  --panel:   rgba(15, 8, 8, 0.55);
+  --tarjeta: rgba(20, 6, 6, 0.62);
 }
 
 /* Respeta a quien pidio menos animacion en su sistema operativo. */

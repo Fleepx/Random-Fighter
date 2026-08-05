@@ -1,0 +1,75 @@
+/* ─── Banda del lema ─── */
+/* Franja roja que corta la pagina, igual que la pincelada del pie de las
+   piezas de marketing. Sirve de respiro entre dos secciones densas. */
+
+.banda {
+  position: relative;
+  padding: var(--space-500) var(--space-400);
+  background: var(--red);
+  overflow: hidden;
+}
+
+/* Bordes irregulares arriba y abajo: la franja no es un rectangulo limpio
+   sino algo barrido, como una pasada de pincel. */
+.banda::before,
+.banda::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: var(--bg);
+}
+.banda::before {
+  top: 0;
+  clip-path: polygon(
+    0 0, 100% 0, 100% 40%, 92% 12%, 84% 62%, 73% 18%, 61% 55%,
+    52% 10%, 41% 58%, 30% 16%, 19% 60%, 9% 14%, 0 48%
+  );
+}
+.banda::after {
+  bottom: 0;
+  clip-path: polygon(
+    0 100%, 100% 100%, 100% 52%, 91% 88%, 80% 38%, 70% 84%, 58% 44%,
+    47% 90%, 37% 40%, 26% 86%, 15% 42%, 6% 88%, 0 46%
+  );
+}
+
+/* Textura gastada sobre el rojo, para que no se lea como un bloque plano. */
+.banda__lema {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-300);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+}
+
+.banda__lema > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-300);
+}
+
+.banda__punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .banda { padding: var(--space-400) var(--space-300); }
+  .banda__lema { gap: var(--space-200); }
+  .banda__lema > span { gap: var(--space-200); }
+}

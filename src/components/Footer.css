@@ -1,7 +1,7 @@
 /* ─── Pie ─── */
 
 .pie {
-  background: var(--bg);
+  background: var(--panel);
   border-top: 1px solid var(--surface-border);
   padding: var(--space-800) var(--space-400) var(--space-400);
 }

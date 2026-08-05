@@ -1,6 +1,8 @@
+import Atmosfera from "./components/Atmosfera";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Problem from "./components/Problem";
+import BandaLema from "./components/BandaLema";
 import TaglineReveal from "./components/TaglineReveal";
 import Benefits from "./components/Benefits";
 import HowItWorks from "./components/HowItWorks";
@@ -15,11 +17,13 @@ export default function App() {
         Saltar al contenido
       </a>
 
+      <Atmosfera />
       <Navbar />
 
       <main id="contenido">
         <Hero />
         <Problem />
+        <BandaLema />
         <TaglineReveal />
         <Benefits />
         <HowItWorks />

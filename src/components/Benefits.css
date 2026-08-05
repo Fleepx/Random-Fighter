@@ -1,7 +1,7 @@
 /* ─── Beneficios ─── */
 
 .beneficios {
-  background: var(--bg);
+  background: transparent;
   padding: var(--space-900) var(--space-400);
 }
 
@@ -24,7 +24,7 @@
   padding: var(--space-500);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
-  background: var(--surface);
+  background: var(--tarjeta);
   transition: border-color var(--dur-base) var(--ease-out),
               transform var(--dur-base) var(--ease-out);
 }

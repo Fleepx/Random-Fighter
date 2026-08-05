@@ -2,7 +2,7 @@
 
 .cta-final {
   position: relative;
-  background: var(--surface);
+  background: var(--panel);
   border-top: 1px solid var(--surface-border);
   padding: var(--space-900) var(--space-400);
   text-align: center;

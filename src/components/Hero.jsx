@@ -9,8 +9,6 @@ export default function Hero() {
 
   return (
     <section className="hero">
-      <div className="hero__fondo" aria-hidden="true" />
-
       <div className="hero__inner">
         <div className="hero__texto">
           <img src={logo} alt="Random Fighter" className="hero__logo" />

@@ -1,7 +1,7 @@
 /* ─── Como funciona ─── */
 
 .como {
-  background: var(--surface);
+  background: var(--panel);
   border-block: 1px solid var(--surface-border);
   padding: var(--space-900) var(--space-400);
 }

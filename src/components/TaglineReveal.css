@@ -1,7 +1,7 @@
 /* ─── Tagline reveal ─── */
 
 .tagline {
-  background: var(--bg);
+  background: transparent;
   padding: var(--space-900) var(--space-400);
   display: flex;
   justify-content: center;
