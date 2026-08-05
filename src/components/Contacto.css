@@ -7,11 +7,11 @@
   justify-content: center;
 }
 
-/* El padding tiene que dejar aire de sobra: el borde rasgado se desplaza
-   hacia adentro y sin margen le pasaria por encima al texto. */
+/* Aire generoso: el borde rasgado se desplaza hacia adentro y sin margen
+   le pasaria por encima al contenido. */
 .contacto__caja {
   width: 100%;
-  max-width: 720px;
+  max-width: 640px;
   padding: var(--space-700) var(--space-600);
   text-align: center;
 }
@@ -32,31 +32,152 @@
   line-height: 1.7;
   color: var(--text-gray);
   max-width: 440px;
-  margin: 0 auto var(--space-500);
+  margin: 0 auto var(--space-600);
   text-wrap: pretty;
 }
 
-.contacto__principal {
-  display: inline-block;
+/* ─── Formulario ─── */
+
+.contacto__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-400);
+  text-align: left;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-75);
+}
+
+.campo label {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+  font-size: var(--text-sm);
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-gray);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  padding: var(--space-100) var(--space-200);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
   color: #fff;
-  text-decoration: none;
-  padding-bottom: var(--space-75);
-  border-bottom: 2px solid var(--red);
-  transition: color var(--dur-fast) var(--ease-out),
-              transform var(--dur-fast) var(--ease-out);
+  font-family: inherit;
+  font-size: var(--text-base);
+  line-height: 1.5;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out);
 }
-.contacto__principal:hover {
-  color: var(--red);
-  transform: translateY(-2px);
+
+.campo textarea {
+  resize: vertical;
+  min-height: 7rem;
 }
-.contacto__principal:active { transform: translateY(1px); }
+
+.campo input:hover,
+.campo select:hover,
+.campo textarea:hover {
+  border-color: rgba(192, 57, 43, 0.5);
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: none;
+  border-color: var(--red);
+  background: rgba(0, 0, 0, 0.65);
+}
+
+/* El anillo de foco global sigue apareciendo para quien navega con
+   teclado; aca solo se refuerza el borde. */
+.campo input:focus-visible,
+.campo select:focus-visible,
+.campo textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.campo .tiene-error {
+  border-color: var(--red);
+  background: rgba(60, 12, 12, 0.4);
+}
+
+.campo__error {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: #FF8A7A;
+}
+
+/* La flecha del select nativo se ve gris de sistema: se dibuja una propia. */
+.campo select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--red) 50%),
+                    linear-gradient(135deg, var(--red) 50%, transparent 50%);
+  background-position: right 1.15rem center, right 0.85rem center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: var(--space-600);
+}
+.campo select option {
+  background: #140606;
+  color: #fff;
+}
+
+.contacto__enviar {
+  margin-top: var(--space-100);
+  padding: var(--space-100) var(--space-500);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--red);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out),
+              filter var(--dur-fast) var(--ease-out);
+}
+.contacto__enviar:hover  { transform: translateY(-2px); filter: brightness(1.12); }
+.contacto__enviar:active { transform: translateY(1px) scale(0.98); }
+.contacto__enviar:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+}
+
+.contacto__volver {
+  margin-top: var(--space-300);
+  padding: var(--space-75) var(--space-400);
+  background: transparent;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-light);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.contacto__volver:hover { border-color: var(--red); color: #fff; }
+
+/* ─── Vias directas ─── */
 
 .contacto__secundarias {
-  margin: var(--space-400) 0 0;
+  margin: var(--space-500) 0 0;
   font-size: var(--text-sm);
   color: var(--text-gray);
   display: flex;

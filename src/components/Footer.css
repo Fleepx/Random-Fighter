@@ -1,8 +1,10 @@
 /* ─── Pie ─── */
 
+/* Negro pleno, sin textura: cierra la pagina y le da piso. */
 .pie {
-  background: var(--panel);
-  border-top: 1px solid var(--surface-border);
+  position: relative;
+  z-index: 1;
+  background: #000000;
   padding: var(--space-800) var(--space-400) var(--space-400);
 }
 
