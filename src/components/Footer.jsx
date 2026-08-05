@@ -1,5 +1,5 @@
 import { CONTACTO, MANAGER_URL, PLAY_STORE_URL } from "../data/site";
-import logoRF from "../assets/imgs/RF-logo.png";
+import logoRF from "../assets/imgs/LOGO-RF.png";
 import "./Footer.css";
 
 const ANIO = new Date().getFullYear();

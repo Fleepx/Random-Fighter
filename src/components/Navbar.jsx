@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NAV_LINKS, PLAY_STORE_URL } from "../data/site";
-import logoRF from "../assets/imgs/RF-logo.png";
+import { useSeccionActiva } from "../hooks/useSeccionActiva";
+import logoRF from "../assets/imgs/LOGO-RF.png";
 import "./Navbar.css";
 
 export default function Navbar() {
   const [abierto, setAbierto] = useState(false);
+
+  const ids = useMemo(() => NAV_LINKS.map((l) => l.href.slice(1)), []);
+  const activa = useSeccionActiva(ids);
 
   // Con el menu abierto el fondo no debe scrollear detras del overlay.
   useEffect(() => {
@@ -30,11 +34,20 @@ export default function Navbar() {
         </a>
 
         <ul className="nav__links">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <a href={l.href}>{l.label}</a>
-            </li>
-          ))}
+          {NAV_LINKS.map((l) => {
+            const esActiva = activa === l.href.slice(1);
+            return (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className={esActiva ? "is-activa" : undefined}
+                  aria-current={esActiva ? "true" : undefined}
+                >
+                  {l.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
 
         <a
@@ -59,19 +72,29 @@ export default function Navbar() {
         </button>
       </nav>
 
+      {/* Cerrado queda con visibility hidden, que ademas lo saca del arbol de
+          accesibilidad. No se usa el atributo hidden porque display flex lo
+          anula y romperia la transicion. */}
       <div
         id="menu-movil"
         className={`nav__overlay ${abierto ? "is-open" : ""}`}
-        hidden={!abierto}
       >
         <ul className="nav__overlay-links">
-          {NAV_LINKS.map((l, i) => (
-            <li key={l.href} style={{ transitionDelay: `${100 + i * 50}ms` }}>
-              <a href={l.href} onClick={() => setAbierto(false)}>
-                {l.label}
-              </a>
-            </li>
-          ))}
+          {NAV_LINKS.map((l, i) => {
+            const esActiva = activa === l.href.slice(1);
+            return (
+              <li key={l.href} style={{ transitionDelay: `${100 + i * 50}ms` }}>
+                <a
+                  href={l.href}
+                  className={esActiva ? "is-activa" : undefined}
+                  aria-current={esActiva ? "true" : undefined}
+                  onClick={() => setAbierto(false)}
+                >
+                  {l.label}
+                </a>
+              </li>
+            );
+          })}
           <li style={{ transitionDelay: `${100 + NAV_LINKS.length * 50}ms` }}>
             <a
               href={PLAY_STORE_URL}
