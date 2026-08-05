@@ -1,0 +1,187 @@
+/* ─── Navbar: isla flotante ─── */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Pastilla despegada del borde superior, no una barra pegada al techo. */
+.nav__isla {
+  pointer-events: auto;
+  margin-top: var(--space-300);
+  display: flex;
+  align-items: center;
+  gap: var(--space-300);
+  width: max-content;
+  max-width: calc(100vw - var(--space-400));
+  padding: var(--space-75) var(--space-75) var(--space-75) var(--space-300);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.nav__marca {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav__logo {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-300);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav__links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-gray);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav__links a:hover { color: #fff; }
+
+.nav__cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  background: var(--red);
+  padding: var(--space-75) var(--space-300);
+  /* Radio interno: la isla es 999px pero el gap real es 8px, asi que el
+     boton usa una pastilla propia en vez de heredar el radio del contenedor. */
+  border-radius: 999px;
+  transition: transform var(--dur-fast) var(--ease-out),
+              filter var(--dur-fast) var(--ease-out);
+}
+.nav__cta:hover  { filter: brightness(1.12); transform: translateY(-1px); }
+.nav__cta:active { transform: translateY(1px) scale(0.98); }
+
+/* ─── Hamburguesa ─── */
+
+.nav__burger {
+  display: none;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.nav__burger-linea {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav__burger-linea:nth-child(1) { transform: translate(-50%, -4px); }
+.nav__burger-linea:nth-child(2) { transform: translate(-50%, 4px); }
+
+/* Las lineas rotan hasta cruzarse. Nunca desaparecen: giran hasta la X. */
+.nav__burger.is-open .nav__burger-linea:nth-child(1) {
+  transform: translate(-50%, 0) rotate(45deg);
+}
+.nav__burger.is-open .nav__burger-linea:nth-child(2) {
+  transform: translate(-50%, 0) rotate(-45deg);
+}
+
+/* ─── Overlay ─── */
+
+.nav__overlay {
+  pointer-events: auto;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.86);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease-out),
+              visibility var(--dur-base) var(--ease-out);
+}
+.nav__overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav__overlay-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-500);
+}
+
+/* Cada item sube desde abajo con su propio retardo, en cascada. */
+.nav__overlay-links li {
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+}
+.nav__overlay.is-open .nav__overlay-links li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav__overlay-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav__overlay-links a:hover { color: var(--red); }
+
+.nav__overlay-cta {
+  display: inline-block;
+  background: var(--red);
+  padding: var(--space-100) var(--space-500);
+  border-radius: 999px;
+  font-size: var(--text-lg) !important;
+  margin-top: var(--space-300);
+}
+.nav__overlay-cta:hover { color: #fff !important; filter: brightness(1.12); }
+
+@media (max-width: 860px) {
+  .nav__links,
+  .nav__cta { display: none; }
+  .nav__burger { display: block; }
+  .nav__isla {
+    padding: var(--space-75) var(--space-75) var(--space-75) var(--space-300);
+    gap: var(--space-200);
+  }
+}

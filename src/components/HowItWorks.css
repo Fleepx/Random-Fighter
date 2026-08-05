@@ -1,0 +1,76 @@
+/* ─── Como funciona ─── */
+
+.como {
+  background: var(--surface);
+  border-block: 1px solid var(--surface-border);
+  padding: var(--space-900) var(--space-400);
+}
+
+.como__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-900);
+}
+
+.como__pasos {
+  list-style: none;
+  margin: var(--space-700) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-500);
+  max-width: var(--measure);
+}
+
+.paso {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-300);
+}
+
+.paso__numero {
+  flex-shrink: 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-2xl);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--red);
+  width: 2.5rem;
+}
+
+.paso__titulo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 var(--space-75);
+  text-wrap: balance;
+}
+
+.paso__detalle {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--text-gray);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.como__mockup {
+  display: block;
+  width: 300px;
+  height: auto;
+}
+
+@media (max-width: 980px) {
+  .como__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-600);
+  }
+  .como__visual { justify-self: center; }
+  .como__mockup { width: 240px; }
+}

@@ -1,0 +1,85 @@
+/* ─── CTA final ─── */
+
+.cta-final {
+  position: relative;
+  background: var(--surface);
+  border-top: 1px solid var(--surface-border);
+  padding: var(--space-900) var(--space-400);
+  text-align: center;
+  overflow: hidden;
+}
+
+.cta-final__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+.cta-final__titulo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(var(--text-4xl), 5vw, var(--text-5xl));
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 var(--space-300);
+  text-wrap: balance;
+}
+
+.cta-final__sub {
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  color: var(--text-gray);
+  margin: 0 auto var(--space-500);
+  max-width: 480px;
+  text-wrap: pretty;
+}
+
+.cta-final__boton {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  background: var(--red);
+  padding: var(--space-100) var(--space-500);
+  border-radius: var(--radius-sm);
+  transition: transform var(--dur-fast) var(--ease-out),
+              filter var(--dur-fast) var(--ease-out);
+}
+.cta-final__boton:hover  { transform: translateY(-2px); filter: brightness(1.12); }
+.cta-final__boton:active { transform: translateY(1px) scale(0.98); }
+
+.cta-final__nota {
+  margin: var(--space-200) 0 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-gray);
+  opacity: 0.7;
+}
+
+.cta-final__cruzado {
+  margin: var(--space-700) 0 0;
+  font-size: var(--text-sm);
+  color: var(--text-gray);
+}
+.cta-final__cruzado a {
+  color: var(--text-light);
+  text-decoration: none;
+  border-bottom: 1px solid var(--surface-border);
+  padding-bottom: var(--space-25);
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.cta-final__cruzado a:hover {
+  color: #fff;
+  border-color: var(--red);
+}

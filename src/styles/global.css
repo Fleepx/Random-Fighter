@@ -1,0 +1,215 @@
+/* ─── GLOBAL: variables + reset ─── */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Fighter palette */
+  --red:            #C0392B;
+  --red-dark:       #922B21;
+  --bg:             #0A0A0A;
+  --bg-warm:        #1A0505;
+  --text-light:     #DECBCB;
+  --text-gray:      #9E9E9E;
+  --surface:        #140606;
+  --surface-border: #2A1010;
+
+  /* Manager palette */
+  --blue:           #007CE8;
+  --blue-dark:      #0268C2;
+  --blue-light:     #0088FF;
+
+  /* ─── Type scale ─── */
+  --text-xs:    0.75rem;   /* 12px */
+  --text-sm:    0.875rem;  /* 14px */
+  --text-base:  1rem;      /* 16px */
+  --text-lg:    1.125rem;  /* 18px */
+  --text-xl:    1.25rem;   /* 20px */
+  --text-2xl:   1.5rem;    /* 24px */
+  --text-3xl:   1.875rem;  /* 30px */
+  --text-4xl:   2.25rem;   /* 36px */
+  --text-5xl:   3rem;      /* 48px */
+  --text-6xl:   3.75rem;   /* 60px */
+
+  /* ─── Spacing ─── */
+  --space-25:   0.125rem;  /* 2px  */
+  --space-50:   0.25rem;   /* 4px  */
+  --space-75:   0.5rem;    /* 8px  */
+  --space-100:  0.75rem;   /* 12px */
+  --space-200:  1rem;      /* 16px */
+  --space-300:  1.5rem;    /* 24px */
+  --space-400:  2rem;      /* 32px */
+  --space-500:  2.5rem;    /* 40px */
+  --space-600:  3rem;      /* 48px */
+  --space-700:  4rem;      /* 64px */
+  --space-800:  5rem;      /* 80px */
+  --space-900:  6rem;      /* 96px */
+
+  /* ─── Radius ─── */
+  --radius-sm:  2px;
+  --radius-md:  4px;
+  --radius-lg:  8px;
+
+  /* ─── Motion ─── */
+  /* Curvas con masa: arrancan rapido y frenan largo, como algo con peso real. */
+  --ease-out:    cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    0.2s;
+  --dur-base:    0.4s;
+  --dur-slow:    0.8s;
+
+  /* ─── Layout ─── */
+  --measure: 680px;  /* ancho maximo de lectura para titulos y parrafos */
+}
+
+/* Respeta a quien pidio menos animacion en su sistema operativo. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--bg);
+  color: var(--text-light);
+}
+
+/* ─── Shared utilities ─── */
+.rf-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: var(--space-100);
+}
+
+.rf-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(var(--text-4xl), 5vw, var(--text-6xl));
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 0.95;
+  margin-bottom: var(--space-300);
+  text-wrap: balance;
+}
+
+.rf-body-text {
+  color: var(--text-gray);
+  font-size: var(--text-base);
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+/* ─── Accesibilidad ─── */
+
+/* Anillo de foco visible para quien navega con teclado. No es opcional. */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Salto directo al contenido, primer elemento tabulable de la pagina. */
+.rf-skip-link {
+  position: absolute;
+  top: var(--space-200);
+  left: var(--space-200);
+  z-index: 999;
+  padding: var(--space-100) var(--space-300);
+  background: var(--red);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transform: translateY(-150%);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.rf-skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Shared buttons */
+.rf-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--space-100) var(--space-500);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-75);
+  transition: transform var(--dur-fast) var(--ease-out),
+              filter var(--dur-fast) var(--ease-out);
+  border-radius: var(--radius-sm);
+  color: #fff;
+}
+.rf-btn:hover  { transform: translateY(-2px); filter: brightness(1.1); }
+.rf-btn:active { transform: translateY(1px) scale(0.98); }
+.rf-btn--fighter  { background: var(--red); }
+.rf-btn--referee  { background: var(--blue); }
+
+.rf-btn-sm {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--space-75) var(--space-300);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  color: #fff;
+}
+.rf-btn-sm:hover { opacity: 0.85; transform: translateY(-1px); }
+.rf-btn-sm:active { transform: translateY(1px) scale(0.98); }
+.rf-btn-sm--fighter { background: var(--red); }
+.rf-btn-sm--referee { background: var(--blue); }
+
+/* ─── Reveal al hacer scroll ─── */
+/* Se activa agregando .is-visible desde IntersectionObserver, nunca desde
+   un listener de scroll: eso recalcula layout en cada frame y traba el movil. */
+.rf-reveal {
+  opacity: 0;
+  transform: translateY(2rem);
+  filter: blur(6px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out),
+              filter var(--dur-slow) var(--ease-out);
+}
+.rf-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}

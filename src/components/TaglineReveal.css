@@ -1,0 +1,30 @@
+/* ─── Tagline reveal ─── */
+
+.tagline {
+  background: var(--bg);
+  padding: var(--space-900) var(--space-400);
+  display: flex;
+  justify-content: center;
+}
+
+.tagline__frase {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(var(--text-4xl), 5.5vw, var(--text-6xl));
+  font-weight: 900;
+  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  max-width: var(--measure);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* Cada palabra arranca apagada, cerca del 30% del color base, y sube a
+   blanco pleno cuando cruza la linea de disparo. */
+.tagline__palabra {
+  color: rgba(255, 255, 255, 0.3);
+  transition: color var(--dur-slow) var(--ease-out);
+}
+.tagline__palabra.is-lit {
+  color: #fff;
+}
