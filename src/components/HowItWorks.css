@@ -1,12 +1,29 @@
 /* ─── Como funciona ─── */
 
+/* Bloque opaco a proposito: corta la atmosfera y le da respiro a la
+   pagina. Si todas las secciones flotan sobre la misma textura, se leen
+   como una sola mancha larga. */
 .como {
-  background: var(--panel);
+  position: relative;
+  background: var(--solido);
   border-block: 1px solid var(--surface-border);
   padding: var(--space-900) var(--space-400);
 }
 
+/* Una brasa roja tenue arriba, para que el bloque no entre como un
+   rectangulo muerto. */
+.como::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 60%;
+  background: radial-gradient(70% 100% at 50% 0%, rgba(192, 57, 43, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
 .como__inner {
+  position: relative;
+  z-index: 1;
   max-width: 1100px;
   margin: 0 auto;
   display: grid;

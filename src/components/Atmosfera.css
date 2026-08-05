@@ -24,9 +24,13 @@
 }
 
 /* ─── Tatami ─── */
-/* Absoluto, no fijo: scrollea con la pagina y se va. Mide casi dos
-   pantallas y se apaga con un desvanecido largo, para que el paso al
-   resto de la pagina no se corte de golpe como antes. */
+/* Absoluto, no fijo: scrollea con la pagina y se va.
+ *
+ * La clave esta en background-size: auto 100vh. Con cover sobre un
+ * elemento de 175vh, una imagen apaisada de 1920x1080 se escalaba casi al
+ * doble para llenar un contenedor vertical, y el tejido salia estirado.
+ * Fijando el alto a una pantalla se conserva el encuadre original y el
+ * ancho sale de la proporcion real; despues se repite hacia abajo. */
 
 .atm-tatami {
   position: absolute;
@@ -37,11 +41,12 @@
   z-index: -2;
   pointer-events: none;
   background-image: url('../assets/imgs/fondo-tatami2.jpg');
-  background-size: cover;
+  background-size: auto 100vh;
+  background-repeat: repeat-y;
   background-position: center top;
-  opacity: 0.45;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 94%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 34%, transparent 94%);
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 96%);
 }
 
 /* ─── Capa de frente: luces, viñeta y grano ─── */

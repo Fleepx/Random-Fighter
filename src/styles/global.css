@@ -74,6 +74,11 @@
      --panel es para bloques grandes, --tarjeta para cajas de contenido. */
   --panel:   rgba(15, 8, 8, 0.55);
   --tarjeta: rgba(20, 6, 6, 0.62);
+
+  /* Bloque opaco que corta la atmosfera. Sin el, las secciones seguidas
+     sobre la misma textura se leen todas iguales y la pagina se aplana.
+     El tono es calido, para no pelearse con el rojo de la marca. */
+  --solido: #131209;
 }
 
 /* Respeta a quien pidio menos animacion en su sistema operativo. */
