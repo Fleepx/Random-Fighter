@@ -1,6 +1,6 @@
 import { PLAY_STORE_URL, MANAGER_URL } from "../data/site";
 import { useReveal } from "../hooks/useReveal";
-import IconoGooglePlay from "./IconoGooglePlay";
+import BotonTienda from "./BotonTienda";
 import "./FinalCta.css";
 
 export default function FinalCta() {
@@ -19,19 +19,10 @@ export default function FinalCta() {
           plataforma.
         </p>
 
-        <a
-          href={PLAY_STORE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="cta-final__boton"
-        >
-          <IconoGooglePlay />
-          Descargar en Google Play
-        </a>
-
-        <p className="cta-final__nota">
-          iOS en revisión en la App Store
-        </p>
+        <div className="tiendas cta-final__tiendas">
+          <BotonTienda tienda="google" href={PLAY_STORE_URL} />
+          <BotonTienda tienda="apple" disponible={false} nota="Próximamente" />
+        </div>
 
         <p className="cta-final__cruzado">
           ¿Tienes una academia?{" "}

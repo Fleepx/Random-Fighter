@@ -58,25 +58,9 @@
   text-wrap: pretty;
 }
 
-.hero__cta {
-  gap: var(--space-100);
-  display: inline-flex;
-  align-items: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: var(--text-base);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  text-decoration: none;
-  background: var(--red);
-  padding: var(--space-100) var(--space-500);
-  border-radius: var(--radius-sm);
-  transition: transform var(--dur-fast) var(--ease-out),
-              filter var(--dur-fast) var(--ease-out);
+.hero__tiendas {
+  justify-content: flex-start;
 }
-.hero__cta:hover  { transform: translateY(-2px); filter: brightness(1.12); }
-.hero__cta:active { transform: translateY(1px) scale(0.98); }
 
 .hero__prueba {
   margin-top: var(--space-300);

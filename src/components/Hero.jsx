@@ -1,6 +1,6 @@
 import { PLAY_STORE_URL } from "../data/site";
 import { useReveal } from "../hooks/useReveal";
-import IconoGooglePlay from "./IconoGooglePlay";
+import BotonTienda from "./BotonTienda";
 import logo from "../assets/imgs/LOGO-RF.png";
 import captura from "../assets/imgs/RF-Screenshot.jpeg";
 import "./Hero.css";
@@ -24,19 +24,12 @@ export default function Hero() {
             Reserva tus clases y revisa tu plan. Gratis para alumnos.
           </p>
 
-          <a
-            href={PLAY_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hero__cta"
-          >
-            <IconoGooglePlay />
-            Descargar en Google Play
-          </a>
+          <div className="tiendas hero__tiendas">
+            <BotonTienda tienda="google" href={PLAY_STORE_URL} />
+            <BotonTienda tienda="apple" disponible={false} nota="Próximamente" />
+          </div>
 
-          <p className="hero__prueba">
-            Gratis para alumnos · Disponible en Google Play · iOS en revisión
-          </p>
+          <p className="hero__prueba">Gratis para alumnos</p>
         </div>
 
         <div className="hero__visual rf-reveal" ref={visual}>

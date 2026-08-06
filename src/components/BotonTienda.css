@@ -1,0 +1,101 @@
+/* ─── Insignias de tienda ─── */
+/* Colores invertidos respecto de las oficiales: caja blanca, texto negro.
+   La composicion (icono, linea chica, nombre grande) se mantiene. */
+
+.tienda {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-200);
+  padding: var(--space-75) var(--space-300);
+  background: #FFFFFF;
+  color: #000000;
+  border: 1px solid #FFFFFF;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+}
+
+a.tienda:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+}
+a.tienda:active { transform: translateY(1px) scale(0.98); }
+
+.tienda__icono {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.tienda__icono svg {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+.tienda__texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+/* Barlow normal, no la condensada: las insignias reales usan una grotesca
+   de ancho corriente y con la condensada se leia como titular. */
+.tienda__linea-chica {
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.6875rem;   /* 11px, igual que la insignia oficial */
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.tienda__linea-grande {
+  font-family: 'Barlow', sans-serif;
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Apagada ─── */
+/* Para una tienda donde la app todavia no esta publicada. No es enlace:
+   un boton que no lleva a ningun lado es peor que no tenerlo. */
+.tienda--apagada {
+  position: relative;
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: rgba(0, 0, 0, 0.65);
+  cursor: default;
+}
+.tienda--apagada .tienda__icono svg { opacity: 0.55; }
+
+.tienda__nota {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--space-300) * -1);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-gray);
+}
+
+/* ─── Fila de insignias ─── */
+
+/* La nota va posicionada por fuera de la insignia, asi que la fila
+   reserva ese alto abajo. Sin esto se montaba sobre el texto siguiente. */
+.tiendas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-300);
+  padding-bottom: var(--space-400);
+}
+
+@media (max-width: 980px) {
+  .tiendas { justify-content: center; }
+}

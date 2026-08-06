@@ -24,10 +24,15 @@
 
 /* Arriba de todo la barra va ancha, transparente y pegada al techo.
    Al bajar se encoge a una pastilla flotante con vidrio. */
+/* Grilla de tres columnas con los costados iguales: asi los enlaces
+   quedan centrados de verdad. Con flex y margenes automaticos el centro
+   se corria la mitad de la diferencia entre el ancho del logo y el del
+   boton, que no son iguales. */
 .nav__isla {
   pointer-events: auto;
   margin-top: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: var(--space-300);
   width: 100%;
@@ -48,7 +53,13 @@
               backdrop-filter var(--dur-slow) var(--ease-out);
 }
 
+.nav__marca { justify-self: start; }
+.nav__cta   { justify-self: end; }
+
+/* Armada la isla se vuelve a flex: ahi los tres elementos se pegan entre
+   si y la pastilla mide lo que mide su contenido. */
 .nav.is-isla .nav__isla {
+  display: flex;
   margin-top: var(--space-300);
   width: max-content;
   max-width: calc(100vw - var(--space-400));
@@ -59,10 +70,6 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
-
-/* Arriba, con la barra ancha, los enlaces se van a la derecha. */
-.nav__links { margin-left: auto; }
-.nav.is-isla .nav__links { margin-left: 0; }
 
 .nav__marca {
   display: flex;
@@ -75,14 +82,18 @@
   display: block;
 }
 
+/* Con la barra ancha los margenes automaticos empujan por los dos lados,
+   asi los enlaces quedan centrados con la marca a la izquierda y el boton
+   a la derecha. Al armarse la isla vuelven a pegarse. */
 .nav__links {
   display: flex;
   align-items: center;
   gap: var(--space-300);
   list-style: none;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
 }
+.nav.is-isla .nav__links { margin: 0; }
 .nav__links a {
   position: relative;
   display: block;
@@ -297,8 +308,16 @@
   .nav__links,
   .nav__cta { display: none; }
   .nav__burger { display: block; }
+
+  /* Sin enlaces ni boton quedan solo marca y hamburguesa: la grilla de
+     tres columnas sobra, con flex a los extremos alcanza. */
   .nav__isla {
-    padding: var(--space-75) var(--space-75) var(--space-75) var(--space-300);
+    display: flex;
+    justify-content: space-between;
     gap: var(--space-200);
+  }
+  .nav.is-isla .nav__isla {
+    justify-content: flex-start;
+    padding: var(--space-75) var(--space-75) var(--space-75) var(--space-300);
   }
 }

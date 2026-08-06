@@ -44,35 +44,7 @@
   text-wrap: pretty;
 }
 
-.cta-final__boton {
-  gap: var(--space-100);
-  display: inline-flex;
-  align-items: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: var(--text-base);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  text-decoration: none;
-  background: var(--red);
-  padding: var(--space-100) var(--space-500);
-  border-radius: var(--radius-sm);
-  transition: transform var(--dur-fast) var(--ease-out),
-              filter var(--dur-fast) var(--ease-out);
-}
-.cta-final__boton:hover  { transform: translateY(-2px); filter: brightness(1.12); }
-.cta-final__boton:active { transform: translateY(1px) scale(0.98); }
 
-.cta-final__nota {
-  margin: var(--space-200) 0 0;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-gray);
-}
 
 .cta-final__cruzado {
   margin: var(--space-700) 0 0;
