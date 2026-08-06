@@ -68,16 +68,6 @@
   }
 }
 
-.hero__prueba {
-  margin-top: var(--space-300);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-gray);
-}
-
 /* ─── Captura ─── */
 
 .hero__visual {

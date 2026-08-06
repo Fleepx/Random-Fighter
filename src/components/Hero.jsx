@@ -26,10 +26,8 @@ export default function Hero() {
 
           <div className="tiendas hero__tiendas">
             <BotonTienda tienda="google" href={PLAY_STORE_URL} />
-            <BotonTienda tienda="apple" disponible={false} nota="Próximamente" />
+            <BotonTienda tienda="apple" disponible={false} />
           </div>
-
-          <p className="hero__prueba">Gratis para alumnos</p>
         </div>
 
         <div className="hero__visual rf-reveal" ref={visual}>
