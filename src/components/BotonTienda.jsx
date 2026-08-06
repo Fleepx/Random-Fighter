@@ -36,13 +36,21 @@ function IconoApple() {
   );
 }
 
-export default function BotonTienda({
-  tienda,
-  href,
-  disponible = true,
-  nota,
-}) {
+export default function BotonTienda({ tienda, href, disponible = true }) {
   const esGoogle = tienda === "google";
+  const nombre = esGoogle ? "Google Play" : "App Store";
+
+  /* La linea chica es la que avisa el estado. Antes esto era una etiqueta
+     aparte flotando debajo, pero quedaba a otra alineacion que el resto
+     del bloque y descuadraba todo. Dentro de la insignia se explica sola
+     y no arrastra nada. */
+  const lineaChica = !disponible
+    ? esGoogle
+      ? "Próximamente en"
+      : "Próximamente en el"
+    : esGoogle
+    ? "Disponible en"
+    : "Disponible en el";
 
   const contenido = (
     <>
@@ -51,12 +59,8 @@ export default function BotonTienda({
       </span>
 
       <span className="tienda__texto">
-        <span className="tienda__linea-chica">
-          {esGoogle ? "Disponible en" : "Disponible en el"}
-        </span>
-        <span className="tienda__linea-grande">
-          {esGoogle ? "Google Play" : "App Store"}
-        </span>
+        <span className="tienda__linea-chica">{lineaChica}</span>
+        <span className="tienda__linea-grande">{nombre}</span>
       </span>
     </>
   );
@@ -65,10 +69,9 @@ export default function BotonTienda({
     return (
       <span
         className="tienda tienda--apagada"
-        aria-label={`${esGoogle ? "Google Play" : "App Store"}: ${nota}`}
+        aria-label={`${nombre}: próximamente`}
       >
         {contenido}
-        {nota && <span className="tienda__nota">{nota}</span>}
       </span>
     );
   }

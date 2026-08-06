@@ -61,7 +61,6 @@ a.tienda:active { transform: translateY(1px) scale(0.98); }
 /* Para una tienda donde la app todavia no esta publicada. No es enlace:
    un boton que no lleva a ningun lado es peor que no tenerlo. */
 .tienda--apagada {
-  position: relative;
   background: rgba(255, 255, 255, 0.28);
   border-color: rgba(255, 255, 255, 0.28);
   color: rgba(0, 0, 0, 0.65);
@@ -69,31 +68,14 @@ a.tienda:active { transform: translateY(1px) scale(0.98); }
 }
 .tienda--apagada .tienda__icono svg { opacity: 0.55; }
 
-.tienda__nota {
-  position: absolute;
-  left: 50%;
-  bottom: calc(var(--space-300) * -1);
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-gray);
-}
-
 /* ─── Fila de insignias ─── */
 
-/* La nota va posicionada por fuera de la insignia, asi que la fila
-   reserva ese alto abajo. Sin esto se montaba sobre el texto siguiente. */
 .tiendas {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: var(--space-300);
-  padding-bottom: var(--space-400);
 }
 
 @media (max-width: 980px) {
