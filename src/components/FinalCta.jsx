@@ -1,5 +1,6 @@
 import { PLAY_STORE_URL, MANAGER_URL } from "../data/site";
 import { useReveal } from "../hooks/useReveal";
+import IconoGooglePlay from "./IconoGooglePlay";
 import "./FinalCta.css";
 
 export default function FinalCta() {
@@ -24,6 +25,7 @@ export default function FinalCta() {
           rel="noopener noreferrer"
           className="cta-final__boton"
         >
+          <IconoGooglePlay />
           Descargar en Google Play
         </a>
 

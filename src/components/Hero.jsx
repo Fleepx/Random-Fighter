@@ -1,5 +1,6 @@
 import { PLAY_STORE_URL } from "../data/site";
 import { useReveal } from "../hooks/useReveal";
+import IconoGooglePlay from "./IconoGooglePlay";
 import logo from "../assets/imgs/LOGO-RF.png";
 import captura from "../assets/imgs/RF-Screenshot.jpeg";
 import "./Hero.css";
@@ -20,8 +21,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero__sub">
-            Random Fighter es gratis para alumnos. Reserva tu cupo, revisa
-            cuándo vence tu plan y lleva el registro de tus combates.
+            Reserva tus clases y revisa tu plan. Gratis para alumnos.
           </p>
 
           <a
@@ -30,6 +30,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="hero__cta"
           >
+            <IconoGooglePlay />
             Descargar en Google Play
           </a>
 

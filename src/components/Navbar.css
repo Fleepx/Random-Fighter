@@ -11,22 +11,58 @@
   pointer-events: none;
 }
 
-/* Pastilla despegada del borde superior, no una barra pegada al techo. */
+/* Centinela de un pixel en el tope del documento. Mientras se ve, la
+   barra va ancha; cuando sale de cuadro, se arma la isla. */
+.nav__centinela {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* Arriba de todo la barra va ancha, transparente y pegada al techo.
+   Al bajar se encoge a una pastilla flotante con vidrio. */
 .nav__isla {
   pointer-events: auto;
-  margin-top: var(--space-300);
+  margin-top: 0;
   display: flex;
   align-items: center;
   gap: var(--space-300);
+  width: 100%;
+  max-width: 1200px;
+  padding: var(--space-300) var(--space-400);
+  border-radius: 0;
+  border: 1px solid transparent;
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition: margin-top var(--dur-slow) var(--ease-out),
+              width var(--dur-slow) var(--ease-out),
+              max-width var(--dur-slow) var(--ease-out),
+              padding var(--dur-slow) var(--ease-out),
+              border-radius var(--dur-slow) var(--ease-out),
+              border-color var(--dur-slow) var(--ease-out),
+              background-color var(--dur-slow) var(--ease-out),
+              backdrop-filter var(--dur-slow) var(--ease-out);
+}
+
+.nav.is-isla .nav__isla {
+  margin-top: var(--space-300);
   width: max-content;
   max-width: calc(100vw - var(--space-400));
   padding: var(--space-75) var(--space-75) var(--space-75) var(--space-300);
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.09);
   background: rgba(10, 10, 10, 0.72);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
+
+/* Arriba, con la barra ancha, los enlaces se van a la derecha. */
+.nav__links { margin-left: auto; }
+.nav.is-isla .nav__links { margin-left: 0; }
 
 .nav__marca {
   display: flex;
@@ -156,6 +192,45 @@
   opacity: 1;
   visibility: visible;
 }
+
+/* ─── Cerrar ─── */
+/* Arriba a la derecha, fuera del camino de los enlaces. Salir del menu no
+   puede depender de elegir una opcion. */
+.nav__cerrar {
+  position: absolute;
+  top: var(--space-400);
+  right: var(--space-400);
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--surface-border);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+  transition-delay: 150ms;
+}
+.nav__overlay.is-open .nav__cerrar {
+  opacity: 1;
+  transform: scale(1);
+}
+.nav__cerrar:hover { border-color: var(--red); }
+.nav__cerrar:active { transform: scale(0.94); }
+
+.nav__cerrar-linea {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  background: #fff;
+  border-radius: 1px;
+}
+.nav__cerrar-linea:nth-child(1) { transform: translate(-50%, -50%) rotate(45deg); }
+.nav__cerrar-linea:nth-child(2) { transform: translate(-50%, -50%) rotate(-45deg); }
 
 .nav__overlay-links {
   list-style: none;
