@@ -58,8 +58,14 @@
   text-wrap: pretty;
 }
 
-.hero__tiendas {
-  justify-content: flex-start;
+/* En escritorio la columna de texto va alineada a la izquierda, asi que
+   las insignias tambien. Abajo de 980px el hero se centra entero y esta
+   regla no debe aplicar, o los botones quedan corridos respecto del
+   titulo y del texto de apoyo. */
+@media (min-width: 981px) {
+  .hero__tiendas {
+    justify-content: flex-start;
+  }
 }
 
 .hero__prueba {

@@ -269,7 +269,7 @@ body {
 .rf-btn-sm--referee { background: var(--blue); }
 
 /* ─── Reveal al hacer scroll ─── */
-/* Se activa agregando .is-visible desde IntersectionObserver, nunca desde
+/* Lo activa useReveal con data-visible, nunca desde
    un listener de scroll: eso recalcula layout en cada frame y traba el movil. */
 .rf-reveal {
   opacity: 0;
@@ -279,7 +279,10 @@ body {
               transform var(--dur-slow) var(--ease-out),
               filter var(--dur-slow) var(--ease-out);
 }
-.rf-reveal.is-visible {
+/* El atributo lo pone useReveal. Va como data y no como clase porque
+   React reescribe className en cada render y se llevaria la clase
+   puesta a mano, dejando el elemento invisible. */
+.rf-reveal[data-visible="true"] {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);

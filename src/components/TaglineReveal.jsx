@@ -15,7 +15,7 @@ export default function TaglineReveal() {
 
     const sinMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (sinMovimiento.matches) {
-      palabras.forEach((p) => p.classList.add("is-lit"));
+      palabras.forEach((p) => p.dataset.encendida = "true");
       return;
     }
 
@@ -29,7 +29,7 @@ export default function TaglineReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add("is-lit");
+          entry.target.dataset.encendida = "true";
           observer.unobserve(entry.target);
         });
       },
