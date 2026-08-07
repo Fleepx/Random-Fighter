@@ -149,20 +149,25 @@
    la pastilla tiene que medir poco y a esa altura el lector ya paso por
    la portada, donde el nombre estaba a tamano completo.
  *
- * Se colapsa el ancho en vez de usar display none, que no se puede
- * animar y cortaria de golpe en medio de la transicion de la barra.
- * El nombre para lectores de pantalla vive aparte y no se toca. */
-.nav .marca__nombre {
-  overflow: hidden;
-  max-width: 16ch;
-  opacity: 1;
-  transition: max-width var(--dur-slow) var(--ease-out),
+ * Colapsa con una grilla de 1fr a 0fr en vez de un max-width. Un tope en
+ * ch es un numero magico que hay que adivinar, y con la condensada quedaba
+ * a menos de dos pixeles del ancho real del texto: bastaba que la fuente
+ * de respaldo midiera distinto para que se comiera la ultima letra.
+ * La grilla se anima igual y nunca limita el ancho desplegado. */
+.nav .marca__envoltorio {
+  display: grid;
+  grid-template-columns: 1fr;
+  transition: grid-template-columns var(--dur-slow) var(--ease-out),
               opacity var(--dur-base) var(--ease-out);
 }
-.nav.is-isla .marca__nombre {
-  max-width: 0;
+.nav.is-isla .marca__envoltorio {
+  grid-template-columns: 0fr;
   opacity: 0;
 }
+
+/* overflow hidden es obligatorio para que el hijo se deje recortar
+   mientras la columna se cierra. */
+.nav .marca__nombre { overflow: hidden; }
 
 /* Sin nombre visible el espacio entre simbolo y texto sobra. */
 .nav .marca { transition: gap var(--dur-slow) var(--ease-out); }
