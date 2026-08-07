@@ -81,3 +81,29 @@ a.tienda:active { transform: translateY(1px) scale(0.98); }
 @media (max-width: 980px) {
   .tiendas { justify-content: center; }
 }
+
+/* ─── Insignia con brillo especular ─── */
+/* SpecularButton trae su propio relleno, sombra y tipografia de boton.
+   Aca se los quita: la caja y el tamano los sigue definiendo .tienda, y
+   el efecto solo aporta el filo de luz. */
+.tienda--especular {
+  padding: var(--space-75) var(--space-300);
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: normal;
+  line-height: normal;
+  box-shadow: none;
+}
+
+/* SpecularButton envuelve todo el contenido en un solo span, que no es
+   contenedor flex: el icono y el texto se apilaban en vertical y la
+   insignia salia angosta y alta. Se le devuelve la fila. */
+.tienda--especular .specular-button__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-200);
+}
+
+/* El canvas se sale 20px por lado para que el resplandor desborde el
+   filo. Sin esto el ancestro con overflow hidden lo recortaba. */
+.tiendas { overflow: visible; }

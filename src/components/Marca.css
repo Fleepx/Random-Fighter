@@ -52,18 +52,21 @@
 .marca--nav .marca__linea1  { font-size: var(--text-xs); letter-spacing: 0.22em; }
 .marca--nav .marca__linea2  { font-size: var(--text-xl); letter-spacing: 0.04em; }
 
+/* Es un bloque de marca, no un titular. Antes competia con el h1: mismo
+   cuerpo y cero separacion, se leian como un solo parrafo. */
 .marca--hero {
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-300);
+  gap: var(--space-200);
+  margin-bottom: var(--space-500);
 }
 .marca--hero .marca__simbolo {
   width: clamp(150px, 16vw, 210px);
   height: auto;
   filter: drop-shadow(0 0 32px rgba(192, 57, 43, 0.45));
 }
-.marca--hero .marca__linea1 { font-size: var(--text-lg); letter-spacing: 0.3em; }
-.marca--hero .marca__linea2 { font-size: var(--text-4xl); letter-spacing: 0.06em; }
+.marca--hero .marca__linea1 { font-size: var(--text-base); letter-spacing: 0.3em; }
+.marca--hero .marca__linea2 { font-size: var(--text-2xl); letter-spacing: 0.06em; }
 
 .marca--pie .marca__simbolo { height: 52px; }
 .marca--pie .marca__linea1  { font-size: var(--text-xs); letter-spacing: 0.22em; }

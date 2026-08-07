@@ -1,3 +1,4 @@
+import SpecularButton from "./SpecularButton";
 import "./BotonTienda.css";
 
 /**
@@ -76,14 +77,31 @@ export default function BotonTienda({ tienda, href, disponible = true }) {
     );
   }
 
+  /* El brillo especular va solo en la insignia activa. La apagada no
+     lleva ninguno: cada instancia abre un contexto WebGL propio y un
+     bucle de render permanente, y ponerlo en una que no se puede pulsar
+     seria gasto sin nada a cambio.
+     Renderiza <a> porque recibe href, no un boton: esto navega a la
+     tienda. */
   return (
-    <a
-      className="tienda"
+    <SpecularButton
+      className="tienda tienda--especular"
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      size="md"
+      radius={8}
+      tintOpacity={0}
+      blur={0}
+      lineColor="#FFFFFF"
+      baseColor="#C0392B"
+      intensity={1.1}
+      shineSize={12}
+      shineFade={36}
+      thickness={1.2}
+      proximity={220}
     >
       {contenido}
-    </a>
+    </SpecularButton>
   );
 }
