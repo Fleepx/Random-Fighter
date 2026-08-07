@@ -16,13 +16,6 @@
   gap: var(--space-600);
 }
 
-.pie__logo {
-  height: 56px;
-  width: auto;
-  display: block;
-  margin-bottom: var(--space-300);
-}
-
 .pie__tagline {
   font-size: var(--text-sm);
   line-height: 1.7;

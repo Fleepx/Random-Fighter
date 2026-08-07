@@ -76,12 +76,6 @@
   align-items: center;
   flex-shrink: 0;
 }
-.nav__logo {
-  height: 40px;
-  width: auto;
-  display: block;
-}
-
 /* Con la barra ancha los margenes automaticos empujan por los dos lados,
    asi los enlaces quedan centrados con la marca a la izquierda y el boton
    a la derecha. Al armarse la isla vuelven a pegarse. */

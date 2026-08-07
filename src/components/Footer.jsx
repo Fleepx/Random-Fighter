@@ -1,5 +1,5 @@
 import { CONTACTO, MANAGER_URL, PLAY_STORE_URL } from "../data/site";
-import logoRF from "../assets/imgs/LOGO-RF.png";
+import Marca from "./Marca";
 import "./Footer.css";
 
 const ANIO = new Date().getFullYear();
@@ -9,7 +9,7 @@ export default function Footer() {
     <footer className="pie">
       <div className="pie__inner">
         <div className="pie__marca">
-          <img src={logoRF} alt="Random Fighter" className="pie__logo" />
+          <Marca tamano="pie" />
           <p className="pie__tagline">
             La app para quienes entrenan deportes de contacto.
           </p>

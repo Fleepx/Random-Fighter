@@ -1,7 +1,7 @@
 import { PLAY_STORE_URL } from "../data/site";
 import { useReveal } from "../hooks/useReveal";
 import BotonTienda from "./BotonTienda";
-import logo from "../assets/imgs/LOGO-RF.png";
+import Marca from "./Marca";
 import captura from "../assets/imgs/RF-Screenshot.jpeg";
 import "./Hero.css";
 
@@ -12,7 +12,7 @@ export default function Hero() {
     <section className="hero">
       <div className="hero__inner">
         <div className="hero__texto">
-          <img src={logo} alt="Random Fighter" className="hero__logo" />
+          <Marca tamano="hero" />
 
           <h1 className="hero__titulo">
             Tus clases, tus pagos<br />

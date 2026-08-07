@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { NAV_LINKS, PLAY_STORE_URL } from "../data/site";
 import { useSeccionActiva } from "../hooks/useSeccionActiva";
-import logoRF from "../assets/imgs/LOGO-RF.png";
+import Marca from "./Marca";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -55,8 +55,8 @@ export default function Navbar() {
 
       <header className={`nav ${bajando ? "is-isla" : ""}`}>
         <nav className="nav__isla" aria-label="Navegación principal">
-          <a href="#contenido" className="nav__marca">
-            <img src={logoRF} alt="Random Fighter" className="nav__logo" />
+          <a href="#contenido" className="nav__marca" aria-label="Random Fighter, ir al inicio">
+            <Marca tamano="nav" />
           </a>
 
           <ul className="nav__links">
