@@ -1,6 +1,4 @@
-import Inclina3D from "./Inclina3D";
 import ShinyText from "./ShinyText";
-import { usePunteroFino } from "../hooks/usePunteroFino";
 import logo from "../assets/imgs/LOGO-RF.png";
 import "./Marca.css";
 
@@ -15,24 +13,13 @@ import "./Marca.css";
  * poner tope al ancho desplegado. Ver el comentario alla.
  */
 export default function Marca({ tamano = "nav" }) {
-  const conPuntero = usePunteroFino();
-
   const simbolo = (
     <img src={logo} alt="" className="marca__simbolo" aria-hidden="true" />
   );
 
   return (
     <span className={`marca marca--${tamano}`}>
-      {/* Solo en la portada: en la barra o el pie el giro no se nota.
-          El iman anterior arrastraba el simbolo fuera de su lugar; esto lo
-          gira sobre su eje sin moverlo. Se apaga sin puntero fino. */}
-      {tamano === "hero" ? (
-        <Inclina3D activo={conPuntero} grados={16}>
-          {simbolo}
-        </Inclina3D>
-      ) : (
-        simbolo
-      )}
+      {simbolo}
 
       <span className="marca__envoltorio">
         <span className="marca__nombre">

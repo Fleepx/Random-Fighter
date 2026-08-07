@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { NAV_LINKS, PLAY_STORE_URL } from "../data/site";
 import { useSeccionActiva } from "../hooks/useSeccionActiva";
 import Marca from "./Marca";
+import GlareHover from "./GlareHover";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -76,14 +77,30 @@ export default function Navbar() {
             })}
           </ul>
 
-          <a
-            href={PLAY_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav__cta"
+          {/* El destello barre el boton al pasar el cursor. Va en transparente
+              para no tapar el rojo, que lo pone el propio .nav__cta. */}
+          <GlareHover
+            className="nav__cta-marco"
+            width="auto"
+            height="auto"
+            background="transparent"
+            borderColor="transparent"
+            borderRadius="999px"
+            glareColor="#ffffff"
+            glareOpacity={0.4}
+            glareAngle={-35}
+            glareSize={220}
+            transitionDuration={750}
           >
-            Descargar
-          </a>
+            <a
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav__cta"
+            >
+              Descargar
+            </a>
+          </GlareHover>
 
           <button
             type="button"

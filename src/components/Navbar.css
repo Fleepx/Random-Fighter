@@ -53,8 +53,8 @@
               backdrop-filter var(--dur-slow) var(--ease-out);
 }
 
-.nav__marca { justify-self: start; }
-.nav__cta   { justify-self: end; }
+.nav__marca     { justify-self: start; }
+.nav__cta-marco { justify-self: end; }
 
 /* Armada la isla se vuelve a flex: ahi los tres elementos se pegan entre
    si y la pastilla mide lo que mide su contenido. */
@@ -71,10 +71,15 @@
   -webkit-backdrop-filter: blur(20px);
 }
 
+/* Es un enlace: sin esto hereda el subrayado y el azul por defecto del
+   navegador. No se notaba porque los spans de adentro traen su propio
+   color, pero el subrayado si aparecia bajo el nombre. */
 .nav__marca {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
 }
 /* Con la barra ancha los margenes automaticos empujan por los dos lados,
    asi los enlaces quedan centrados con la marca a la izquierda y el boton
@@ -172,6 +177,20 @@
 /* Sin nombre visible el espacio entre simbolo y texto sobra. */
 .nav .marca { transition: gap var(--dur-slow) var(--ease-out); }
 .nav.is-isla .marca { gap: 0; }
+
+/* ─── Marco del destello ─── */
+/* GlareHover trae medidas y borde propios; aca se le pide que no imponga
+   caja ni borde: el tamano lo sigue definiendo el boton de adentro. */
+.nav__cta-marco {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 0;
+}
+
+/* El enlace tiene que ser inline-flex: un inline no suma el relleno
+   vertical a su caja y el destello barreria una franja mas baja. */
+.nav__cta-marco .nav__cta { display: inline-flex; align-items: center; }
 
 /* ─── Hamburguesa ─── */
 
@@ -328,8 +347,10 @@
 .nav__overlay-cta:hover { color: #fff !important; filter: brightness(1.12); }
 
 @media (max-width: 860px) {
+  /* Se oculta el envoltorio, no el enlace de adentro: escondiendo solo el
+     enlace, el efecto quedaba montado como una caja de cero por cero. */
   .nav__links,
-  .nav__cta { display: none; }
+  .nav__cta-marco { display: none; }
   .nav__burger { display: block; }
 
   /* Sin enlaces ni boton quedan solo marca y hamburguesa: la grilla de
