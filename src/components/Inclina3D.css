@@ -1,0 +1,23 @@
+/* ─── Inclinacion 3D ─── */
+
+.inclina3d {
+  display: inline-block;
+  perspective: 700px;
+}
+
+.inclina3d__cara {
+  display: inline-block;
+  transform: rotateX(var(--giro-x, 0deg)) rotateY(var(--giro-y, 0deg));
+  transform-style: preserve-3d;
+  /* Al entrar sigue al puntero casi al instante; al salir vuelve lento,
+     que es lo que le da el peso. */
+  transition: transform var(--dur-slow) var(--ease-out);
+  will-change: transform;
+}
+.inclina3d.is-activo:hover .inclina3d__cara {
+  transition: transform 0.12s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inclina3d__cara { transform: none; transition: none; }
+}

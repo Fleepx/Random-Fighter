@@ -5,26 +5,63 @@
   padding: var(--space-900) var(--space-400);
   display: flex;
   justify-content: center;
+  /* El texto extruido se inclina fuera de su caja; sin esto el navegador
+     abre barra horizontal en pantallas justas. */
+  overflow: hidden;
 }
 
-.tagline__frase {
+.tagline__inner {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+}
+
+.tagline__3d {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+  align-items: center;
+}
+
+/* DepthText no fija tipografia: la hereda del padre, que en esta pagina
+   es Barlow normal. Se la impone la condensada en mayusculas para que
+   hable el mismo idioma que el resto de los titulares.
+   El componente trae letter-spacing -0.065em, pensado para una fuente
+   ancha; con la condensada las letras se encimaban. */
+.tagline__linea {
+  width: 100%;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(var(--text-4xl), 5.5vw, var(--text-6xl));
-  font-weight: 900;
-  line-height: 1.05;
   text-transform: uppercase;
-  letter-spacing: -0.005em;
+}
+.tagline__linea .depth-text__layer,
+.tagline__linea .depth-text__face {
+  letter-spacing: 0.005em;
+}
+
+.tagline__cierre {
+  margin: var(--space-500) auto 0;
   max-width: var(--measure);
-  margin: 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(var(--text-xl), 2.6vw, var(--text-3xl));
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--text-gray);
   text-wrap: balance;
 }
 
-/* Cada palabra arranca apagada, cerca del 30% del color base, y sube a
-   blanco pleno cuando cruza la linea de disparo. */
-.tagline__palabra {
-  color: rgba(255, 255, 255, 0.3);
-  transition: color var(--dur-slow) var(--ease-out);
-}
-.tagline__palabra[data-encendida="true"] {
-  color: #fff;
+/* Solo para lectores de pantalla: el bloque 3D es decorativo y va con
+   aria-hidden, asi que la frase completa tiene que existir en algun lado
+   como texto corrido. */
+.tagline__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

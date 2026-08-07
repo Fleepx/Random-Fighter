@@ -1,54 +1,56 @@
-import { useEffect, useRef } from "react";
+import DepthText from "./DepthText";
+import { useReveal } from "../hooks/useReveal";
+import { usePunteroFino } from "../hooks/usePunteroFino";
 import "./TaglineReveal.css";
 
-const FRASE =
-  "No vuelvas a preguntar cuándo vence tu plan ni a esperar que te confirmen el cupo por WhatsApp.";
+/**
+ * La frase va en dos bloques y no en uno: extruida en capas, un parrafo
+ * largo en una sola linea se vuelve ilegible. Cortada donde corta la
+ * idea, cada mitad se lee sola.
+ */
+const LINEAS = [
+  "No vuelvas a preguntar",
+  "cuándo vence tu plan",
+];
+
+const CIERRE = "ni a esperar que te confirmen el cupo por WhatsApp.";
 
 export default function TaglineReveal() {
-  const contenedor = useRef(null);
-
-  useEffect(() => {
-    const nodo = contenedor.current;
-    if (!nodo) return;
-
-    const palabras = Array.from(nodo.querySelectorAll(".tagline__palabra"));
-
-    const sinMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (sinMovimiento.matches) {
-      palabras.forEach((p) => p.dataset.encendida = "true");
-      return;
-    }
-
-    /**
-     * Un observer por palabra, con el borde inferior recortado al 45%.
-     * Eso crea una linea de disparo a media pantalla: cada palabra se
-     * enciende cuando la cruza, en orden de lectura, en vez de prenderse
-     * todo el bloque de golpe.
-     */
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.dataset.encendida = "true";
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -45% 0px", threshold: 0 }
-    );
-
-    palabras.forEach((p) => observer.observe(p));
-    return () => observer.disconnect();
-  }, []);
+  const bloque = useReveal({ threshold: 0.25 });
+  const conPuntero = usePunteroFino();
 
   return (
     <section className="tagline" aria-label="Lo que cambia con Random Fighter">
-      <p className="tagline__frase" ref={contenedor}>
-        {FRASE.split(" ").map((palabra, i) => (
-          <span className="tagline__palabra" key={`${palabra}-${i}`}>
-            {palabra}{" "}
-          </span>
-        ))}
-      </p>
+      <div className="tagline__inner rf-reveal" ref={bloque}>
+        {/* El texto extruido es decorativo: la frase completa vive en el
+            parrafo de abajo, que es lo que lee un lector de pantalla. */}
+        <div className="tagline__3d" aria-hidden="true">
+          {LINEAS.map((linea) => (
+            <DepthText
+              key={linea}
+              text={linea}
+              layers={26}
+              depth={2}
+              faceColor="#FFFFFF"
+              depthColor="#C0392B"
+              tilt={9}
+              pointerTracking={conPuntero}
+              autoOrbit={!conPuntero}
+              orbitSpeed={0.25}
+              smoothing={0.12}
+              perspective={1000}
+              fontSize="clamp(2rem, 7vw, 4.5rem)"
+              className="tagline__linea"
+            />
+          ))}
+        </div>
+
+        <p className="tagline__cierre">{CIERRE}</p>
+
+        <p className="tagline__sr">
+          {LINEAS.join(" ")} {CIERRE}
+        </p>
+      </div>
     </section>
   );
 }

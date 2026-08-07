@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { NAV_LINKS, PLAY_STORE_URL } from "../data/site";
 import { useSeccionActiva } from "../hooks/useSeccionActiva";
 import Marca from "./Marca";
-import ElectricBorder from "./ElectricBorder";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -77,24 +76,14 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* El borde electrico solo aparece armada la isla: arriba, con la
-              barra ancha y transparente, competia con el titular del hero. */}
-          <ElectricBorder
-            className="nav__cta-marco"
-            color="#C0392B"
-            speed={0.8}
-            chaos={0.6}
-            borderRadius={999}
+          <a
+            href={PLAY_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav__cta"
           >
-            <a
-              href={PLAY_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav__cta"
-            >
-              Descargar
-            </a>
-          </ElectricBorder>
+            Descargar
+          </a>
 
           <button
             type="button"

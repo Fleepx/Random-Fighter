@@ -53,8 +53,8 @@
               backdrop-filter var(--dur-slow) var(--ease-out);
 }
 
-.nav__marca      { justify-self: start; }
-.nav__cta-marco  { justify-self: end; }
+.nav__marca { justify-self: start; }
+.nav__cta   { justify-self: end; }
 
 /* Armada la isla se vuelve a flex: ahi los tres elementos se pegan entre
    si y la pastilla mide lo que mide su contenido. */
@@ -172,20 +172,6 @@
 /* Sin nombre visible el espacio entre simbolo y texto sobra. */
 .nav .marca { transition: gap var(--dur-slow) var(--ease-out); }
 .nav.is-isla .marca { gap: 0; }
-
-/* ─── Marco electrico del CTA ─── */
-/* Arriba, con la barra transparente, los arcos competian con el titular
-   del hero. Aparecen recien cuando se arma la isla. */
-.nav .nav__cta-marco {
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out);
-}
-.nav.is-isla .nav__cta-marco { opacity: 1; }
-
-/* El enlace no es hijo directo: ElectricBorder lo mete dentro de
-   .eb-content. Y tiene que ser inline-flex, porque un inline no suma el
-   relleno vertical a su caja y el marco quedaba mas bajo que el boton. */
-.nav__cta-marco .nav__cta { display: inline-flex; align-items: center; }
 
 /* ─── Hamburguesa ─── */
 
@@ -342,10 +328,8 @@
 .nav__overlay-cta:hover { color: #fff !important; filter: brightness(1.12); }
 
 @media (max-width: 860px) {
-  /* Se oculta el envoltorio, no el enlace de adentro: escondiendo solo el
-     enlace, el efecto quedaba montado como una caja de cero por cero. */
   .nav__links,
-  .nav__cta-marco { display: none; }
+  .nav__cta { display: none; }
   .nav__burger { display: block; }
 
   /* Sin enlaces ni boton quedan solo marca y hamburguesa: la grilla de
