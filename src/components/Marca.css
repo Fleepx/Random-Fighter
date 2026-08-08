@@ -1,4 +1,6 @@
 /* ─── Marca ─── */
+/* "Random Fighter" es un logotipo en una sola linea: las dos palabras van
+   al mismo cuerpo y al mismo peso, y lo unico que las separa es el color. */
 
 .marca {
   display: inline-flex;
@@ -12,28 +14,24 @@
   flex-shrink: 0;
 }
 
-/* Nombre en dos lineas, como el bloqueo de la app: RANDOM chico arriba,
-   FIGHTER grande abajo. */
 .marca__nombre {
   display: flex;
   flex-direction: column;
-  line-height: 0.92;
+  line-height: 1;
   font-family: 'Barlow Condensed', sans-serif;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-.marca__linea1 {
-  font-weight: 600;
-  color: var(--red);
-}
-.marca__linea2 {
+.marca__titulo {
+  display: block;
   font-weight: 900;
-  color: #fff;
 }
+.marca__palabra1 { color: var(--red); }
+.marca__palabra2 { color: #fff; }
 
-/* Solo para lectores de pantalla: el bloque visual parte el nombre en dos
-   lineas y no debe leerse entrecortado. */
+/* Solo para lectores de pantalla: el nombre visual son spans sueltos y no
+   debe leerse entrecortado. */
 .marca__sr {
   position: absolute;
   width: 1px;
@@ -49,11 +47,10 @@
 /* ─── Tamaños ─── */
 
 .marca--nav .marca__simbolo { height: 40px; }
-.marca--nav .marca__linea1  { font-size: var(--text-xs); letter-spacing: 0.22em; }
-.marca--nav .marca__linea2  { font-size: var(--text-xl); letter-spacing: 0.04em; }
+.marca--nav .marca__titulo  { font-size: var(--text-xl); letter-spacing: 0.04em; }
 
-/* Es un bloque de marca, no un titular. Antes competia con el h1: mismo
-   cuerpo y cero separacion, se leian como un solo parrafo. */
+/* Es un bloque de marca, no un titular: sin esta separacion competia con
+   el h1, mismo cuerpo y cero aire entre los dos. */
 .marca--hero {
   flex-direction: column;
   align-items: flex-start;
@@ -65,12 +62,10 @@
   height: auto;
   filter: drop-shadow(0 0 32px rgba(192, 57, 43, 0.45));
 }
-.marca--hero .marca__linea1 { font-size: var(--text-base); letter-spacing: 0.3em; }
-.marca--hero .marca__linea2 { font-size: var(--text-2xl); letter-spacing: 0.06em; }
+.marca--hero .marca__titulo { font-size: var(--text-3xl); letter-spacing: 0.05em; }
 
 .marca--pie .marca__simbolo { height: 52px; }
-.marca--pie .marca__linea1  { font-size: var(--text-xs); letter-spacing: 0.22em; }
-.marca--pie .marca__linea2  { font-size: var(--text-2xl); letter-spacing: 0.04em; }
+.marca--pie .marca__titulo  { font-size: var(--text-2xl); letter-spacing: 0.04em; }
 
 @media (max-width: 980px) {
   .marca--hero {
@@ -79,9 +74,8 @@
   }
 }
 
-/* En pantallas angostas el nombre en la barra compite con el boton de
-   menu: se achica antes de estorbar. */
-@media (max-width: 420px) {
+/* En pantallas angostas el nombre compite con el boton de menu. */
+@media (max-width: 460px) {
   .marca--nav .marca__simbolo { height: 34px; }
-  .marca--nav .marca__linea2  { font-size: var(--text-lg); }
+  .marca--nav .marca__titulo  { font-size: var(--text-base); }
 }
