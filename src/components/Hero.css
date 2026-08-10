@@ -26,14 +26,28 @@
   overflow: hidden;
   mix-blend-mode: screen;
   opacity: 0.75;
+
+  /* A los lados no hace falta apagar nada: el borde de la capa es el borde
+     de la ventana. Abajo si, porque la seccion termina y sin esto queda una
+     linea horizontal donde el haz se corta de golpe. Se nota mas desde que
+     el alcance subio a 2.6 y los rayos llegan hasta el pie. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
 }
 
 /* Las dos esquinas van una encima de otra, no en fila. El componente trae
    position: relative y alto completo, asi que sin esto el segundo haz
-   quedaba debajo del primero y el hero medio duplicaba de alto. */
+   quedaba debajo del primero y el hero medio duplicaba de alto.
+
+   screen entre los dos, y esto no es un detalle: el shader nunca baja de
+   0.2 de intensidad, ni en la esquina mas lejana, y el alfa sale de ahi.
+   Apilados con composicion normal el lienzo de arriba tiene alfa en toda
+   su superficie y borra al de abajo entero, asi que solo se veia una
+   esquina. Dos focos se suman. */
 .hero__rayo-lado {
   position: absolute;
   inset: 0;
+  mix-blend-mode: screen;
 }
 
 /* En movil las luces laterales ya invaden la columna de texto; los rayos
@@ -109,13 +123,22 @@
 .hero__luz-captura {
   position: absolute;
   top: -45%;
-  right: -35%;
-  bottom: -6%;
-  left: -35%;
+  right: -48%;
+  bottom: -10%;
+  left: -48%;
   z-index: 1;
   pointer-events: none;
   mix-blend-mode: screen;
   opacity: 0.85;
+
+  /* El haz sigue encendido cuando llega al borde del lienzo y se cortaba en
+     recto: se veia el rectangulo del canvas, no un foco. La mascara lo
+     apaga antes de llegar al filo. Va centrada arriba, donde esta la
+     fuente, y se abre hacia abajo siguiendo la forma del cono. */
+  -webkit-mask-image: radial-gradient(78% 88% at 50% 4%,
+    #000 30%, rgba(0, 0, 0, 0.5) 62%, transparent 88%);
+  mask-image: radial-gradient(78% 88% at 50% 4%,
+    #000 30%, rgba(0, 0, 0, 0.5) 62%, transparent 88%);
 }
 
 /* El telefono va por encima del borde y la sombra de la propia captura,
