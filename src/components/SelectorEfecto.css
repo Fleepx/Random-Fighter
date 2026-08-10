@@ -1,0 +1,136 @@
+/* ─── Selector de efecto ─── */
+/* TEMPORAL: andamio de comparacion. Sale entero al decidir el efecto.
+   Mismo control que el de la banda en Manager, con los tokens de esta
+   pagina. Abajo a la izquierda del hero y en reposo solo el numero: lo que
+   se esta juzgando es la luz, y el control no deberia competirle. */
+
+.selefecto {
+  position: absolute;
+  left: var(--space-400);
+  bottom: var(--space-400);
+  z-index: 2;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.selefecto__boton {
+  display: flex;
+  align-items: center;
+  padding: var(--space-100);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-light);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.selefecto__boton:hover { border-color: var(--red); }
+.selefecto__boton:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+/* Cuadradito con el numero: en reposo es todo el boton, asi que carga el
+   color de marca. */
+.selefecto__numero {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--red);
+  color: #fff;
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+/* El nombre se despliega al acercar el puntero. La grilla de 0fr a 1fr deja
+   que el ancho lo calcule el navegador con el texto real. */
+.selefecto__envoltorio {
+  display: grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns var(--dur-base) var(--ease-out);
+}
+.selefecto__boton:hover .selefecto__envoltorio,
+.selefecto__boton:focus-visible .selefecto__envoltorio,
+.selefecto__boton[aria-expanded="true"] .selefecto__envoltorio {
+  grid-template-columns: 1fr;
+}
+
+.selefecto__texto {
+  overflow: hidden;
+  white-space: nowrap;
+  /* El aire va en el texto y no en el boton: como padding dejaria un hueco
+     a la derecha del numero con el nombre plegado. */
+  padding: 0;
+  transition: padding var(--dur-base) var(--ease-out);
+}
+.selefecto__boton:hover .selefecto__texto,
+.selefecto__boton:focus-visible .selefecto__texto,
+.selefecto__boton[aria-expanded="true"] .selefecto__texto {
+  padding-left: var(--space-200);
+  padding-right: var(--space-150);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selefecto__envoltorio,
+  .selefecto__texto { transition: none; }
+}
+
+/* ─── Lista ─── */
+/* Se abre hacia arriba: el boton esta al pie del hero. */
+
+.selefecto__lista {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + var(--space-100));
+  margin: 0;
+  padding: var(--space-100);
+  list-style: none;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+.selefecto__opcion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+  width: 100%;
+  padding: var(--space-150) var(--space-200);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-gray);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.selefecto__opcion:hover { background: rgba(255, 255, 255, 0.06); color: var(--text-light); }
+.selefecto__opcion:focus-visible { outline: 2px solid var(--red); outline-offset: -2px; }
+.selefecto__opcion[aria-selected="true"] { color: var(--text-light); }
+
+/* Dentro de la lista el nombre va siempre visible: aca no hay nada que
+   plegar, se estan comparando las opciones. */
+.selefecto__opcion .selefecto__texto { padding: 0; }
+
+/* Los no elegidos llevan el numero apagado: el rojo marca cual esta puesto. */
+.selefecto__opcion[aria-selected="false"] .selefecto__numero {
+  background: var(--surface-border);
+  color: var(--text-gray);
+}
+
+@media (max-width: 760px) {
+  .selefecto { left: var(--space-300); bottom: var(--space-300); }
+}

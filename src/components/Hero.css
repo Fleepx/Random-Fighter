@@ -11,6 +11,29 @@
   background: transparent;
 }
 
+/* Los rayos ocupan el hueco que quedaba libre en el apilado: Atmosfera
+   dibuja de -3 a -1 y el contenido va en 1, asi que el 0 estaba vacio.
+   Quedan sobre el tatami y las luces, y debajo de la marca y el titulo.
+
+   screen porque son luz, no pintura: suman sobre el fondo en vez de
+   taparlo, y donde el tatami esta oscuro no ensucian con un rojo plano.
+   El propio componente ya trae pointer-events: none. */
+.hero__rayos {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  mix-blend-mode: screen;
+  opacity: 0.75;
+}
+
+/* En movil las luces laterales ya invaden la columna de texto; los rayos
+   encima dejan el titulo sin contraste. */
+@media (max-width: 760px) {
+  .hero__rayos { opacity: 0.45; }
+}
+
 .hero__inner {
   position: relative;
   z-index: 1;
@@ -67,7 +90,31 @@
   flex-shrink: 0;
 }
 
+/* Foco propio para el telefono, encima de la imagen. Se estira bien por
+   arriba para que el origen de los rayos caiga fuera de cuadro y la luz
+   entre ya abierta, como de una lampara colgada sobre la mesa. A los lados
+   tambien sobra: el haz se abre al bajar y cortado al ancho justo se veria
+   el borde recto del canvas.
+
+   screen para que sume luz sobre la captura en vez de velarla; el contenido
+   de la pantalla del telefono se sigue leyendo. */
+.hero__luz-captura {
+  position: absolute;
+  top: -45%;
+  right: -35%;
+  bottom: -6%;
+  left: -35%;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+}
+
+/* El telefono va por encima del borde y la sombra de la propia captura,
+   pero por debajo del haz. */
 .hero__captura {
+  position: relative;
+  z-index: 0;
   display: block;
   width: 280px;
   height: auto;
