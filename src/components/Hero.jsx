@@ -19,6 +19,22 @@ import "./Hero.css";
 const LUZ_CALIDA = "#FFE8CC";
 const LUZ_BLANCA = "#FFF6EC";
 
+/* Lo comun a las dos esquinas. El ejemplo trae intensity 2 sobre un fondo
+   negro y vacio; aca debajo ya hay tatami, focos y viñeta, y ademas son dos
+   haces que se suman en el centro. A ese valor se quema la franja de arriba
+   y el titulo pierde contraste. */
+const LADO = {
+  speed: 1.6,
+  rayColor1: LUZ_CALIDA,
+  rayColor2: LUZ_BLANCA,
+  intensity: 0.9,
+  spread: 1.8,
+  saturation: 0.9,
+  blend: 0.6,
+  falloff: 1.8,
+  opacity: 0.85,
+};
+
 function Luz({ efecto, conPuntero }) {
   switch (efecto) {
     case "rays":
@@ -28,8 +44,13 @@ function Luz({ efecto, conPuntero }) {
           raysColor={LUZ_BLANCA}
           raysSpeed={0.7}
           lightSpread={0.9}
-          rayLength={1.15}
-          fadeDistance={0.9}
+          /* El alcance se mide contra el ANCHO (maxDistance =
+             iResolution.x * rayLength), no contra la diagonal. En un hero
+             apaisado 1.15 sobraba, pero en celular la caja es mas alta que
+             ancha y los rayos morian antes de llegar abajo. 2.6 cubre los
+             dos casos. */
+          rayLength={2.6}
+          fadeDistance={1.6}
           /* Por debajo de 1 el degradado interno del shader se vuelve
              neutro y el color final queda mas cerca del blanco puesto
              arriba. Sin esto los rayos viran a azul en la mitad de abajo. */
@@ -41,24 +62,16 @@ function Luz({ efecto, conPuntero }) {
         />
       );
 
+    /* Dos instancias, una por esquina de arriba: el componente ilumina
+       desde un solo origen y no hay forma de pedirle los dos. Van con la
+       inclinacion espejada para que el haz se abra hacia el centro en
+       ambos lados en vez de repetir el mismo barrido. */
     case "side":
       return (
-        <SideRays
-          speed={1.6}
-          rayColor1={LUZ_CALIDA}
-          rayColor2={LUZ_BLANCA}
-          /* El ejemplo trae intensity 2 sobre un fondo negro y vacio. Aca
-             abajo ya hay tatami, focos y viñeta: a ese valor se quema todo
-             el cuadrante y el titulo pierde contraste. */
-          intensity={1.1}
-          spread={1.8}
-          origin="top-right"
-          tilt={-6}
-          saturation={0.9}
-          blend={0.6}
-          falloff={1.8}
-          opacity={0.9}
-        />
+        <>
+          <SideRays {...LADO} origin="top-left" tilt={6} className="hero__rayo-lado" />
+          <SideRays {...LADO} origin="top-right" tilt={-6} className="hero__rayo-lado" />
+        </>
       );
 
     default:
@@ -133,8 +146,13 @@ export default function Hero() {
                 raysColor={LUZ_BLANCA}
                 raysSpeed={0.6}
                 lightSpread={0.55}
-                rayLength={1.1}
-                fadeDistance={0.8}
+                /* Misma trampa que arriba, y aca era fatal: la caja mide
+                   476x936, asi que con rayLength 1.1 el alcance daba 524px
+                   y el telefono entero quedaba pasado el corte. No se veia
+                   absolutamente nada. Hace falta 1.2 * 936 / 476 = 2.4 como
+                   minimo; 3.2 deja margen para pantallas mas altas. */
+                rayLength={3.2}
+                fadeDistance={2.2}
                 saturation={0.45}
                 followMouse={conPuntero}
                 mouseInfluence={0.05}

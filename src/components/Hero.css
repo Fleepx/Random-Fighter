@@ -28,6 +28,14 @@
   opacity: 0.75;
 }
 
+/* Las dos esquinas van una encima de otra, no en fila. El componente trae
+   position: relative y alto completo, asi que sin esto el segundo haz
+   quedaba debajo del primero y el hero medio duplicaba de alto. */
+.hero__rayo-lado {
+  position: absolute;
+  inset: 0;
+}
+
 /* En movil las luces laterales ya invaden la columna de texto; los rayos
    encima dejan el titulo sin contraste. */
 @media (max-width: 760px) {
