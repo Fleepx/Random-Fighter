@@ -114,15 +114,18 @@ export default function Contacto() {
       <div className="contacto__caja rf-rasgado rf-rasgado--3 rf-reveal" ref={ref}>
         <p className="rf-eyebrow">Contacto</p>
 
+        {/* "Cuentanos" y no "Dinoslo de frente": el reto sirve para hablar
+            de entrenar, no para atender a alguien que viene con un
+            problema. Repite el verbo de la etiqueta del mensaje, mas abajo
+            en este mismo formulario. */}
         <h2 className="contacto__titulo">
           ¿Algo no te cuadra?<br />
-          Dínoslo de frente
+          Cuéntanos
         </h2>
 
         <p className="contacto__texto">
           Un pago que no aparece, una duda con tu matrícula o algo que
-          podríamos hacer mejor. Aquí nadie se esconde: escríbenos y te
-          respondemos.
+          podríamos hacer mejor. Escríbenos y te respondemos.
         </p>
 
         <form className="contacto__form" onSubmit={enviar} noValidate>
