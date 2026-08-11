@@ -1,3 +1,4 @@
+import { useEnlaceTienda } from "../hooks/useEnlaceTienda";
 import SpecularButton from "./SpecularButton";
 import "./BotonTienda.css";
 
@@ -38,6 +39,9 @@ function IconoApple() {
 }
 
 export default function BotonTienda({ tienda, href, disponible = true }) {
+  /* Antes del primer return: en la insignia apagada no hay href y el hook
+     no hace nada, pero tiene que llamarse igual en todos los renders. */
+  const enlace = useEnlaceTienda(href);
   const esGoogle = tienda === "google";
   const nombre = esGoogle ? "Google Play" : "App Store";
 
@@ -86,9 +90,9 @@ export default function BotonTienda({ tienda, href, disponible = true }) {
   return (
     <SpecularButton
       className="tienda tienda--especular"
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={enlace.href}
+      target={enlace.target}
+      rel={enlace.rel}
       size="md"
       radius={8}
       tintOpacity={0}
