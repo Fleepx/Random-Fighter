@@ -1,489 +1,469 @@
-/* ── Variables — paleta ROJA (Random Fighter / alumnos) ── */
+/* ─── Documentación legal ─── */
+/* Rehecho para ir con la landing: mismos tokens, misma tipografía y el
+   mismo reposo visual. Es un documento legal, así que la lectura manda
+   sobre el efecto: el color acompaña, no decora.
+   Random Fighter */
+
 :root {
-  --red-deep:     #1A0404;
-  --red-mid:      #7B1A1A;
-  --red-accent:   #C0392B;
-  --red-bright:   #E74C3C;
-  --bg-black:     #08050505;
-  --bg-surface:   #120808;
-  --bg-card:      #1A0C0C;
-  --text-primary: #F5ECEC;
-  --text-muted:   #B09090;
-  --text-dim:     #6A4848;
-  --border-sub:   rgba(255,255,255,0.06);
-  --border-acc:   rgba(192,57,43,0.4);
-  --sidebar-w:    260px;
-  --topbar-h:     56px;
+  /* Paleta de Random Fighter, tomada de la landing sin retocar. */
+  --bg:           #0A0A0A;
+  --superficie:   #140606;
+  --borde:        #2A1010;
+  --texto:        #DECBCB;
+  --texto-suave:  #9E9E9E;
+  --texto-tenue:  #6A4848;
+
+  --acento:        #C0392B;
+  --acento-claro:  #E8705F;
+  --acento-tenue:  rgba(192, 57, 43, 0.45);
+  --acento-borde:  rgba(192, 57, 43, 0.35);
+  --acento-fondo:  rgba(192, 57, 43, 0.08);
+
+  --halo-uno: rgba(192, 57, 43, 0.20);
+  --halo-dos: rgba(192, 57, 43, 0.12);
+
+  --titulo-desde: #FFFFFF;
+  --titulo-hasta: #9B9B9B;
+
+  /* Compartido con la landing, valor por valor. */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast: 0.2s;
+  --dur-base: 0.4s;
+  --dur-slow: 0.8s;
+
+  --sidebar-w: 292px;
+  --topbar-h: 64px;
+  --measure: 68ch;
 }
 
-/* ── Reset ── */
+/* ─── Base ─── */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: #080505;
-  color: var(--text-primary);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.7;
-  min-height: 100vh;
+
+html {
+  scroll-behavior: smooth;
+  /* El índice lleva al título justo al borde de arriba y quedaba pegado a
+     la barra fija. */
+  scroll-padding-top: calc(var(--topbar-h) + 1.5rem);
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
-/* ══════════════════════════════════════
-   MOBILE TOPBAR
-══════════════════════════════════════ */
+body {
+  background: var(--bg);
+  color: var(--texto);
+  font-family: 'Barlow', sans-serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Un halo de la marca arriba y el grano de la landing encima. Fijos y
+   detrás de todo: dan el mismo aire que el sitio sin robarle contraste a
+   un texto que hay que poder leer entero. */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100lvh;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(70vw 48vh at 12% -8%, var(--halo-uno), transparent 68%),
+    radial-gradient(60vw 42vh at 96% 8%, var(--halo-dos), transparent 70%);
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23r)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+::selection { background: var(--acento); color: #fff; }
+
+a { color: var(--acento-claro); }
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Barra superior (solo angosto) ─── */
+
 .topbar {
   display: none;
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
   height: var(--topbar-h);
-  background: var(--bg-surface);
-  border-bottom: 1px solid var(--border-sub);
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding: 0 1.25rem;
-  z-index: 200;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--borde);
 }
 
 .topbar-brand {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 20px;
-  letter-spacing: 0.06em;
-  color: var(--red-bright);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto);
 }
 
 .hamburger {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  place-content: center;
   gap: 5px;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--borde);
+  border-radius: var(--radius-md);
+  background: var(--superficie);
   cursor: pointer;
-  background: none;
-  border: none;
-  padding: 6px;
-  border-radius: 4px;
 }
-
 .hamburger span {
   display: block;
-  width: 22px;
+  width: 18px;
   height: 2px;
-  background: var(--text-muted);
-  border-radius: 2px;
-  transition: transform 0.25s, opacity 0.25s;
+  background: var(--texto);
+  transition: transform var(--dur-fast) var(--ease-out),
+              opacity var(--dur-fast) var(--ease-out);
 }
-
 .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ══════════════════════════════════════
-   OVERLAY
-══════════════════════════════════════ */
 .overlay {
-  display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 150;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
   opacity: 0;
-  transition: opacity 0.25s;
+  visibility: hidden;
+  transition: opacity var(--dur-base) var(--ease-out),
+              visibility var(--dur-base) var(--ease-out);
 }
+.overlay.active { opacity: 1; visibility: visible; }
 
-.overlay.active { opacity: 1; }
+/* ─── Armazón ─── */
 
-/* ══════════════════════════════════════
-   LAYOUT SHELL
-══════════════════════════════════════ */
 .shell {
-  display: flex;
-  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  align-items: start;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  gap: 3.5rem;
 }
 
-/* ══════════════════════════════════════
-   SIDEBAR
-══════════════════════════════════════ */
+/* ─── Índice lateral ─── */
+
 .sidebar {
-  width: var(--sidebar-w);
-  min-width: var(--sidebar-w);
-  background: var(--bg-surface);
-  border-right: 1px solid var(--border-sub);
-  display: flex;
-  flex-direction: column;
   position: sticky;
   top: 0;
-  height: 100vh;
+  align-self: start;
+  max-height: 100vh;
   overflow-y: auto;
-  padding: 2.5rem 0 2rem;
-  z-index: 100;
+  padding: 3rem 0;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--borde) transparent;
 }
 
-.sidebar-brand {
-  padding: 0 1.5rem 1.75rem;
-  border-bottom: 1px solid var(--border-sub);
-  margin-bottom: 1.5rem;
-}
+.sidebar-brand { margin-bottom: 2.25rem; }
 
 .sidebar-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.2em;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--acento);
   margin-bottom: 0.35rem;
 }
 
 .sidebar-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  letter-spacing: 0.05em;
-  color: var(--red-bright);
-  line-height: 1;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--texto);
 }
 
 .sidebar-nav-label {
-  font-size: 10px;
-  letter-spacing: 0.15em;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--text-dim);
-  padding: 0 1.5rem;
+  color: var(--texto-suave);
+  padding-bottom: 0.75rem;
   margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--borde);
 }
 
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 0 0.75rem;
-  flex: 1;
-}
+.sidebar-nav { display: flex; flex-direction: column; }
 
+/* Cada ítem lleva una guía a la izquierda que se enciende en el activo.
+   Es la misma idea del subrayado del menú de la landing: marca dónde
+   estás sin agregar una caja más. */
 .nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0.55rem 0.75rem;
-  border-radius: 6px;
-  cursor: pointer;
-  border: none;
-  background: none;
-  text-align: left;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  align-items: baseline;
+  gap: 0.5rem;
   width: 100%;
-  color: var(--text-muted);
-  font-size: 13px;
-  font-family: 'DM Sans', sans-serif;
-  transition: background 0.15s, color 0.15s;
+  padding: 0.5rem 0.5rem 0.5rem 0.875rem;
+  border: 0;
+  border-left: 2px solid var(--borde);
+  background: none;
+  color: var(--texto-suave);
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
 }
-
-.nav-item:hover {
-  background: rgba(255,255,255,0.04);
-  color: var(--text-primary);
-}
-
-.nav-item.active {
-  background: rgba(192,57,43,0.15);
-  color: var(--text-primary);
-}
-
-.nav-item.active .nav-num { color: var(--red-bright); }
+.nav-item:hover { color: var(--texto); border-left-color: var(--acento-tenue); }
+.nav-item.active { color: var(--texto); border-left-color: var(--acento); }
 
 .nav-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 16px;
-  color: var(--red-mid);
-  min-width: 22px;
-  line-height: 1;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--texto-tenue);
+  transition: color var(--dur-fast) var(--ease-out);
 }
+.nav-item.active .nav-num { color: var(--acento); }
+
+.volver {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radius-md);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.volver:hover { border-color: var(--acento); color: var(--texto); }
 
 .sidebar-footer {
-  margin-top: 1.5rem;
-  padding: 1.25rem 1.5rem 0;
-  border-top: 1px solid var(--border-sub);
-}
-
-.sidebar-footer p {
-  font-size: 11px;
-  color: var(--text-dim);
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--borde);
+  font-size: 0.75rem;
   line-height: 1.6;
+  color: var(--texto-tenue);
 }
 
-.sidebar-footer span { color: var(--red-mid); }
+/* ─── Documento ─── */
 
-/* ══════════════════════════════════════
-   MAIN CONTENT
-══════════════════════════════════════ */
-.main {
-  flex: 1;
-  min-width: 0;
-  padding: 3rem 4rem 6rem;
-  max-width: 1240px;
-}
+.main { padding: 3rem 0 6rem; min-width: 0; }
 
-/* ── Doc Header ── */
 .doc-header {
-  margin-bottom: 3.5rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-sub);
-  position: relative;
-}
-
-.doc-header::before {
-  content: '';
-  position: absolute;
-  left: -4rem;
-  top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, var(--red-bright), transparent);
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--borde);
 }
 
 .doc-eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--red-accent);
+  color: var(--acento);
   margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-.doc-eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 18px; height: 1px;
-  background: var(--red-accent);
-}
-
+/* Único degradado sobre texto del documento, igual que en la portada de
+   la landing: del claro al gris medio, y solo en el título. */
 .doc-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 52px;
-  letter-spacing: 0.04em;
-  line-height: 1;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  background: linear-gradient(to right, var(--titulo-desde), var(--titulo-hasta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 1.25rem;
 }
 
 .doc-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem 2rem;
-  font-size: 12px;
-  color: var(--text-dim);
+  gap: 0.5rem 1.5rem;
+  font-size: 0.875rem;
+  color: var(--texto-suave);
 }
+.doc-meta strong { color: var(--texto); font-weight: 600; }
 
-.doc-meta strong { color: var(--text-muted); }
+/* ─── Secciones ─── */
 
-/* ── Sections ── */
-.tc-section {
-  margin-bottom: 3rem;
-  scroll-margin-top: 1.5rem;
-}
+.tc-section { scroll-margin-top: calc(var(--topbar-h) + 1.5rem); }
 
 .section-header {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
   gap: 1.25rem;
   margin-bottom: 1.25rem;
 }
 
+/* El número va en su propia caja, como los pasos numerados de la landing. */
 .section-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 48px;
-  color: var(--red-deep);
-  line-height: 1;
-  min-width: 48px;
-  user-select: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  border: 1px solid var(--acento-borde);
+  border-radius: var(--radius-md);
+  background: var(--acento-fondo);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 900;
+  color: var(--acento-claro);
 }
 
 .section-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  letter-spacing: 0.06em;
-  color: var(--text-primary);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.375rem, 3.2vw, 1.75rem);
+  font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 4px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--texto);
 }
 
 .section-tag {
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-dim);
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--texto-suave);
 }
 
+/* Sangrado para alinear con el título y no con el número. */
 .section-body {
-  padding-left: 4.5rem;
+  padding-left: calc(2.75rem + 1.25rem);
+  max-width: var(--measure);
 }
-
-.section-body p {
-  font-size: 14px;
-  line-height: 1.85;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-}
-
-.section-body p:last-child { margin-bottom: 0; }
+.section-body p + p { margin-top: 1rem; }
+.section-body strong { color: var(--texto); font-weight: 600; }
 
 .section-divider {
   height: 1px;
-  background: var(--border-sub);
-  margin-bottom: 3rem;
+  margin: 2.75rem 0;
+  background: linear-gradient(to right, var(--borde), transparent);
 }
 
-/* ── Alert block ── */
+/* Aviso destacado dentro del cuerpo. */
 .alert {
-  border-left: 2px solid var(--red-accent);
-  background: rgba(192,57,43,0.08);
-  padding: 0.9rem 1.1rem;
-  border-radius: 0 6px 6px 0;
-  margin-bottom: 1rem;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--acento-borde);
+  border-left-width: 3px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: var(--acento-fondo);
+  font-size: 0.9375rem;
 }
 
-.alert p {
-  font-size: 13px;
-  color: var(--text-primary) !important;
-  margin: 0 !important;
+/* ─── Entrada de las secciones ─── */
+/* El mismo gesto del sitio, más contenido: allá entra a 2rem y con
+   desenfoque; en un texto largo eso se repite quince veces seguidas y
+   cansa. Acá alcanza con medio centímetro y la opacidad. */
+
+.revelar {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+}
+.revelar[data-visible="true"] {
+  opacity: 1;
+  transform: none;
 }
 
-.alert strong { color: var(--red-bright); font-weight: 500; }
-
-/* ── Accept bar ── */
-.accept-bar {
-  position: sticky;
-  bottom: 0;
-  background: var(--bg-surface);
-  border-top: 1px solid var(--border-acc);
-  padding: 1rem 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  z-index: 50;
+@media (prefers-reduced-motion: reduce) {
+  .revelar { opacity: 1; transform: none; transition: none; }
+  .hamburger span, .overlay, .nav-item, .volver { transition: none; }
 }
 
-.accept-bar p {
-  font-size: 12px;
-  color: var(--text-dim);
-  max-width: 460px;
-  line-height: 1.5;
-}
+/* ─── Angosto ─── */
 
-.accept-bar p strong { color: var(--text-muted); }
-
-.btn-group { display: flex; gap: 0.75rem; align-items: center; }
-
-.btn-accept {
-  background: var(--red-accent);
-  color: #fff;
-  border: none;
-  padding: 0.65rem 1.75rem;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 16px;
-  letter-spacing: 0.1em;
-  border-radius: 4px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s;
-}
-
-.btn-accept:hover { background: var(--red-bright); }
-
-.btn-decline {
-  background: transparent;
-  color: var(--text-dim);
-  border: 1px solid var(--border-sub);
-  padding: 0.65rem 1.1rem;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  border-radius: 4px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.15s;
-}
-
-.btn-decline:hover { color: var(--text-muted); }
-
-/* ══════════════════════════════════════
-   RESPONSIVE — TABLET (≤900px)
-══════════════════════════════════════ */
 @media (max-width: 900px) {
-  .main { padding: 2.5rem 2.5rem 6rem; }
-  .accept-bar { padding: 1rem 2.5rem; }
-  .doc-header::before { left: -2.5rem; }
-}
-
-/* ══════════════════════════════════════
-   RESPONSIVE — MOBILE (≤680px)
-══════════════════════════════════════ */
-@media (max-width: 680px) {
   .topbar { display: flex; }
-  .overlay { display: block; }
 
+  .shell {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 1.25rem;
+  }
+
+  /* El índice pasa a cajón lateral. */
   .sidebar {
     position: fixed;
-    top: var(--topbar-h);
+    top: 0;
+    bottom: 0;
     left: 0;
-    height: calc(100vh - var(--topbar-h));
+    z-index: 55;
+    width: min(84vw, var(--sidebar-w));
+    max-height: none;
+    padding: calc(var(--topbar-h) + 1.5rem) 1.25rem 2rem;
+    background: var(--superficie);
+    border-right: 1px solid var(--borde);
     transform: translateX(-100%);
-    transition: transform 0.28s cubic-bezier(.4,0,.2,1);
-    z-index: 160;
-    padding-top: 1.5rem;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+    transition: transform var(--dur-base) var(--ease-out);
   }
+  .sidebar.open { transform: none; }
 
-  .sidebar.open { transform: translateX(0); }
-  .sidebar .sidebar-brand { display: none; }
+  .main { padding: calc(var(--topbar-h) + 2rem) 0 4rem; }
 
-  .main {
-    padding: var(--topbar-h) 1.25rem 1.5rem;
-    margin-top: 0;
-    max-width: 100%;
-  }
-
-  .doc-header {
-    margin-top: 1.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-  }
-
-  .doc-header::before { display: none; }
-  .doc-title { font-size: 36px; }
-  .doc-meta { flex-direction: column; gap: 0.4rem; }
-  .section-num { font-size: 36px; min-width: 36px; }
-  .section-body { padding-left: 3rem; }
-  .tc-section { scroll-margin-top: calc(var(--topbar-h) + 1rem); }
-
-  .accept-bar {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 1rem 1.25rem;
-    gap: 0.75rem;
-  }
-
-  .accept-bar p { max-width: 100%; font-size: 11px; }
-  .btn-group { flex-direction: column-reverse; }
-
-  .btn-accept, .btn-decline {
-    width: 100%;
-    text-align: center;
-    padding: 0.75rem;
-  }
-
-  .btn-accept { font-size: 18px; }
+  /* Sin sitio para sangrar: el cuerpo vuelve al margen. */
+  .section-body { padding-left: 0; }
+  .section-header { gap: 0.875rem; }
+  .section-num { width: 2.25rem; height: 2.25rem; font-size: 1rem; }
 }
 
-/* ─── Volver al sitio ─── */
-/* Anadido al incorporar el documento a la landing. Tal como venia no habia
-   forma de salir: ni un enlace en toda la pagina. */
-.volver {
-  display: block;
-  margin-top: 28px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.72);
-  text-decoration: none;
-  transition: border-color .18s ease, color .18s ease;
-}
-.volver:hover {
-  border-color: rgba(255, 255, 255, 0.45);
-  color: #fff;
+@media (prefers-reduced-motion: reduce) {
+  .sidebar { transition: none; }
 }
