@@ -41,7 +41,13 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      # enablement cambia la fuente de Pages a "GitHub Actions" por API.
+      # Sin esto el ajuste se queda en "Deploy from a branch" y GitHub
+      # publica el repositorio crudo: corren los dos despliegues y gana el
+      # de la rama, que es justo el que dejaba la pagina en blanco.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
