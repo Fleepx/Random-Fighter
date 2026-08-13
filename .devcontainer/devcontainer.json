@@ -1,0 +1,25 @@
+// Entorno para Codespaces: con esto el repositorio arranca listo desde el
+// navegador, tambien desde el celular.
+// Node 20 es el mismo que usa el workflow de despliegue. Si aca se
+// construyera con otra version, lo que se publica no seria lo que se probo.
+{
+  "name": "Random Fighter",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "postCreateCommand": "npm ci",
+  "forwardPorts": [
+    5174
+  ],
+  "portsAttributes": {
+    "5174": {
+      "label": "Random Fighter",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
