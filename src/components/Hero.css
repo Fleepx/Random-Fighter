@@ -112,15 +112,15 @@
   flex-shrink: 0;
 }
 
+/* Sin borde: la captura se recorta sola contra el fondo oscuro y la linea
+   solo le agregaba un marco que no aportaba nada. */
 .hero__captura {
   display: block;
   width: 280px;
   height: auto;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--surface-border);
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6);
-  transition: border-color var(--dur-base) var(--ease-out),
-              box-shadow var(--dur-base) var(--ease-out);
+  transition: box-shadow var(--dur-base) var(--ease-out);
 }
 
 /* TEMPORAL: la captura hace de control para probar las luces del fondo.
@@ -136,16 +136,18 @@
 }
 .hero__control-luz:focus-visible { outline: 2px solid var(--red); outline-offset: 6px; }
 
-/* El resplandor va en el borde, no encima de la pantalla: la captura es
-   lo que se esta mirando y velarla seria contraproducente. Dos sombras,
-   una pegada al canto y otra abierta, para que se lea como luz y no como
-   un contorno pintado. */
+/* Al acercar el puntero aparece un halo rojo difuso, sin ninguna linea
+   nitida: el filo de 1px que habia antes se leia como marco, que es justo
+   lo que se saco. Va todo en desenfoque y esparcido, y queda por fuera de
+   la pantalla; la captura es lo que se esta mirando y velarla seria
+   contraproducente.
+   Dos radios distintos: el corto le da cuerpo al canto y el largo lo
+   derrama sobre el fondo, para que se lea como luz encendida detras. */
 .hero__control-luz:hover .hero__captura,
 .hero__control-luz:focus-visible .hero__captura {
-  border-color: rgba(255, 116, 92, 0.75);
   box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6),
-              0 0 0 1px rgba(255, 116, 92, 0.35),
-              0 0 26px rgba(192, 57, 43, 0.55);
+              0 0 18px 2px rgba(255, 116, 92, 0.55),
+              0 0 46px 12px rgba(192, 57, 43, 0.45);
 }
 
 @media (prefers-reduced-motion: reduce) {
