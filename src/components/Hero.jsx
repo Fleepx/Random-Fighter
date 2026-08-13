@@ -6,7 +6,6 @@ import { useMenosMovimiento } from "../hooks/useMenosMovimiento";
 import BotonTienda from "./BotonTienda";
 import LightRays from "./LightRays";
 import SideRays from "./SideRays";
-import SelectorEfecto, { EFECTOS } from "./SelectorEfecto";
 import Marca from "./Marca";
 import captura from "../assets/imgs/RF-Screenshot.jpeg";
 import "./Hero.css";
@@ -34,6 +33,14 @@ const LADO = {
   falloff: 1.8,
   opacity: 0.85,
 };
+
+/* TEMPORAL: las candidatas y el apagado, en el orden en que se recorren
+   al pulsar la captura. Sale entero al decidir. */
+const CICLO = [
+  { id: "rays", nombre: "Light Rays" },
+  { id: "side", nombre: "Side Rays" },
+  { id: "nada", nombre: "sin luz" },
+];
 
 function Luz({ efecto, conPuntero }) {
   switch (efecto) {
@@ -83,15 +90,15 @@ export default function Hero() {
   const visual = useReveal({ threshold: 0.1, delay: 200 });
   const conPuntero = usePunteroFino();
   const quieto = useMenosMovimiento();
-  // TEMPORAL: cual luz se esta probando. Sale con el selector.
-  const [efecto, setEfecto] = useState(EFECTOS[0].id);
+  // TEMPORAL: cual luz se esta probando. Se cambia pulsando la captura,
+  // que hace de control mientras comparamos. Sale al decidir.
+  const [indice, setIndice] = useState(0);
+  const efecto = CICLO[indice];
+  const siguiente = () => setIndice((i) => (i + 1) % CICLO.length);
 
-  // Con movimiento reducido no se monta ninguna: es un bucle permanente,
-  // no una transicion que se pueda acortar.
-  const conLuz = !quieto && efecto !== "nada";
-  // La opcion 3 no va en la capa del hero sino pegada a la captura.
-  const luzEnCaptura = conLuz && efecto === "captura";
-  const luzEnHero = conLuz && !luzEnCaptura;
+  // Con movimiento reducido no se monta: es un bucle permanente, no una
+  // transicion que se pueda acortar.
+  const conLuz = !quieto && efecto.id !== "nada";
 
   return (
     <section className="hero">
@@ -100,9 +107,9 @@ export default function Hero() {
           debajo del contenido; ver Hero.css para el apilado.
           La key la fuerza a desmontar al cambiar: cada efecto abre su
           propio contexto WebGL y hay que soltar el anterior. */}
-      {luzEnHero && (
+      {conLuz && (
         <div className="hero__rayos" aria-hidden="true">
-          <Luz key={efecto} efecto={efecto} conPuntero={conPuntero} />
+          <Luz key={efecto.id} efecto={efecto.id} conPuntero={conPuntero} />
         </div>
       )}
 
@@ -127,45 +134,38 @@ export default function Hero() {
         </div>
 
         <div className="hero__visual rf-reveal" ref={visual}>
-          <img
-            src={captura}
-            alt="Pantalla de inicio de Random Fighter mostrando el plan activo con los días restantes, las acciones rápidas y las próximas clases de la semana"
-            className="hero__captura"
-            width="720"
-            height="1600"
-          />
-
-          {/* Un foco propio para el telefono. La caja se estira por encima
-              de la imagen para que el origen de los rayos quede fuera de
-              cuadro: si nace dentro se ve el punto de luz y parece un
-              reflejo pegado, no una lampara colgando arriba. */}
-          {luzEnCaptura && (
-            <div className="hero__luz-captura" aria-hidden="true">
-              <LightRays
-                raysOrigin="top-center"
-                raysColor={LUZ_BLANCA}
-                raysSpeed={0.6}
-                lightSpread={0.55}
-                /* Misma trampa que arriba, y aca era fatal: la caja mide
-                   476x936, asi que con rayLength 1.1 el alcance daba 524px
-                   y el telefono entero quedaba pasado el corte. No se veia
-                   absolutamente nada. Hace falta 1.2 * 936 / 476 = 2.4 como
-                   minimo; 3.2 deja margen para pantallas mas altas. */
-                rayLength={3.2}
-                fadeDistance={2.2}
-                saturation={0.45}
-                followMouse={conPuntero}
-                mouseInfluence={0.05}
-                noiseAmount={0.06}
-                distortion={0.02}
-              />
-            </div>
-          )}
+          {/* TEMPORAL: la captura hace de control mientras comparamos las
+              luces. Cada pulsacion pasa a la siguiente y vuelve a empezar.
+              Va como <button> y no como un div con onClick para que
+              responda al teclado y se anuncie como lo que es; el estado
+              actual va en el nombre accesible, que es lo unico que tiene
+              quien no ve el cambio de iluminacion.
+              Al decidir, esto vuelve a ser una imagen suelta. */}
+          {/* TEMPORAL: la captura hace de control mientras comparamos las
+              luces del fondo. Cada pulsacion pasa a la siguiente y vuelve
+              a empezar. Va como <button> y no como un div con onClick para
+              que responda al teclado y se anuncie como lo que es.
+              El aria-label no sobra: sin el, el nombre accesible sale del
+              alt de la imagen, que describe la pantalla y no dice nada de
+              lo que hace pulsarla. Al decidir vuelve a ser una imagen. */}
+          <button
+            type="button"
+            className="hero__control-luz"
+            onClick={siguiente}
+            aria-label={`Luz del fondo: ${efecto.nombre}. Pulsa para probar la siguiente.`}
+            title={`Luz: ${efecto.nombre} — pulsa para cambiar`}
+          >
+            <img
+              src={captura}
+              alt="Pantalla de inicio de Random Fighter mostrando el plan activo con los días restantes, las acciones rápidas y las próximas clases de la semana"
+              className="hero__captura"
+              width="720"
+              height="1600"
+            />
+          </button>
         </div>
       </div>
 
-      {/* TEMPORAL: andamio de comparacion. */}
-      <SelectorEfecto valor={efecto} alCambiar={setEfecto} />
     </section>
   );
 }
