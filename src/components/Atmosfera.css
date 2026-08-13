@@ -4,9 +4,19 @@
 
 /* ─── Capa de fondo: negro base y cemento ─── */
 
+/* Alto fijado al viewport grande, el estado con la barra del navegador
+   escondida. Con inset: 0 la capa seguia al viewport y el navegador lo
+   cambia de alto al esconder o mostrar su barra al desplazarse: el fondo
+   se estiraba con el dedo puesto y saltaba al soltarlo, como si no fuera
+   estatico. Reservando desde el principio el alto mayor, no hay nada que
+   redimensionar; con la barra a la vista sobra un poco por abajo y no se
+   ve, que es justo lo que se busca. */
 .atm-fondo {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100lvh;
   z-index: -3;
   pointer-events: none;
   background: var(--bg);
@@ -39,7 +49,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 108vh;
+  height: 108lvh;
   z-index: -2;
   pointer-events: none;
   background-image: url('../assets/imgs/fondo-tatami2.jpg');
@@ -52,9 +62,13 @@
 
 /* ─── Capa de frente: luces, viñeta y grano ─── */
 
+/* Mismo motivo que .atm-fondo. */
 .atm-frente {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100lvh;
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
