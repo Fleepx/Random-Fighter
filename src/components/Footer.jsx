@@ -41,8 +41,8 @@ export default function Footer() {
         <nav className="pie__col" aria-label="Legal">
           <h2 className="pie__titulo">Legal</h2>
           <ul>
-            <li><a href="/terminos/">Términos y condiciones</a></li>
-            <li><a href="/privacidad/">Política de privacidad</a></li>
+            <li><a href={`${import.meta.env.BASE_URL}terminos/`}>Términos y condiciones</a></li>
+            <li><a href={`${import.meta.env.BASE_URL}privacidad/`}>Política de privacidad</a></li>
             <li><a href={MANAGER_URL}>Random Fighter Manager</a></li>
           </ul>
         </nav>

@@ -33,6 +33,13 @@ function indicesDePublic() {
 }
 
 export default defineConfig({
+  /* Rutas relativas en el build. GitHub Pages publica los proyectos bajo
+     /<repositorio>/, y con rutas absolutas el HTML pedia /assets/... a la
+     raiz del dominio: cargaba la pagina y ningun script, o sea en blanco.
+     Relativa tambien sirve tal cual si algun dia esto cuelga de
+     randomfighter.cl en la raiz, sin volver a tocar esto. */
+  base: "./",
+
   plugins: [react(), indicesDePublic()],
   resolve: {
     // El alias tiene que existir aca ademas de en jsconfig.json: jsconfig
